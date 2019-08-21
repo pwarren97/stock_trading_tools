@@ -5,9 +5,10 @@
 - download_symbols()
 
 ## To get stock data for a specific stock
-- get_stock_data(ticker_symbol, start, end=start)
-- return: open, high, low, close, volume
+- get_stock_data(ticker_symbol, start)
+- get_stock_data(ticker_symbol, start, end)
+- return pandas object with open, high, low, close, volume
 
 ## To get stock data for several stocks
 - get_stock_data([ticker_symbol1, ticker_symbol2, ...], start, end=start)
-- return: for each stock open, high, low, close, volume
+- return for each stock open, high, low, close, volume
