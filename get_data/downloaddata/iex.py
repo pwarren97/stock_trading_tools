@@ -1,1 +1,0 @@
-from iexfinance.stocks import get_historical_data
