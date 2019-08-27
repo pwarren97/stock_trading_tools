@@ -12,5 +12,5 @@ elif len(sys.argv) == 3:
     stock_data = iex.get_stock_data(sys.argv[1], sys.argv[2])
 
 
-if stock_data:
-    print(stock_data)
+# if stock_data.any():
+print(stock_data)

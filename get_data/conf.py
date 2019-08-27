@@ -10,7 +10,10 @@ sql_password=""
 # [ MongoDB ]
 mongo_socket=""
 
+
 # [ Stock Data Source ]
-# [ IEX ]
+# [ General Information]
 data_source="iex"
+
+# [ IEX ]
 iex_token="pk_82f39a5069f646f08be56cb2f5d7eea7"
