@@ -1,12 +1,14 @@
 [ root ]
-conf.py
-  All configuration information should be defined here.
-__main__.py
-  File is what gets run when you pass get_data/ to python.
+get_data/
+  Base directory of the whole program. Start with python get_data or the get_data.sh file.
+  conf.py
+    All configuration information should be defined here.
+  __main__.py
+    File is what gets run when you pass get_data/ to python.
 
 
 [ sources/ Directory ]
-sources/
+get_data/sources/
   The sources folders contains a python file for each source you can download information from.
 
   iex.py

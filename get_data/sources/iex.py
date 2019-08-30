@@ -29,11 +29,12 @@ def get_stock_data(ticker_symbol, start, end=None):
             raise TypeError("An item in ticker_symbol is not a string.")
 
     # Get the data from online
-    if not end == None:
-        stock_data = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.iex_token)
-    elif int(start) < int(start):
-        stock_data = get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.iex_token)
-    
+    if end == None:
+        return get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.iex_token)
+    elif int(start) < int(end):
+        return get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.iex_token)
+    else:
+        raise ValueError("")
     return stock_data
 
 # def get_stock_data()
