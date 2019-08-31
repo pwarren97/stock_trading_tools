@@ -36,6 +36,8 @@ def get_stock_data(ticker_symbol, start, end=None):
     elif int(start) < int(end):
         return get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.iex_token)
     else:
+        # if the start date is in the wrong place but hasn't
+        # been handled correctly by __main__.py
         raise ValueError("The start needs to come before the end.")
     return stock_data
 
