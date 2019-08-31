@@ -1,6 +1,5 @@
 # Configuration file containing relevant information
 
-
 # [ Database Information]
 # [ SQL ]
 sql_socket=""

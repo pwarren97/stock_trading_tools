@@ -1,7 +1,7 @@
 from iexfinance.stocks import get_historical_data
 import iexfinance.refdata
 import conf
-from template import SourceTemplate
+from template import Source
 
 """
 This module covers iextrading based communication.
@@ -10,7 +10,7 @@ functions:
 get_stock_data(ticker_symbol, start, end=None)
 get_symbols()
 """
-class IEXCloud(SourceTemplate):
+class IEXCloud(Source):
     """
     Class representing the connection to IEXCloud
     """
