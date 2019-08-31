@@ -1,4 +1,5 @@
 from iexfinance.stocks import get_historical_data
+import iexfinance.ref_data
 import conf
 
 """
@@ -6,6 +7,7 @@ This module covers iextrading based communication.
 
 functions:
 get_stock_data(ticker_symbol, start, end=None)
+get_symbols()
 """
 
 def get_stock_data(ticker_symbol, start, end=None):
@@ -37,4 +39,8 @@ def get_stock_data(ticker_symbol, start, end=None):
         raise ValueError("The start needs to come before the end.")
     return stock_data
 
-# def get_stock_data()
+def get_symbols():
+    """
+    Returns all the symbols
+    """
+    return iexfinance.refdata.get_symbols()

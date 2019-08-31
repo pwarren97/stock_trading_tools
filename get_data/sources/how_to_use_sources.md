@@ -2,7 +2,7 @@
 
 ## To get the symbols for populating the database
 ### Should only need to be used once
-- download_symbols()
+- get_symbols()
 
 ## To get stock data for a specific stock
 - get_stock_data(ticker_symbol, start, end=None)
