@@ -18,9 +18,9 @@ else:
     stock_data = None
 
     if len(args.date) == 1:
-        stock_data = iex.get_stock_data(args.stock, args.date[0])
+        stock_data = iex.IEXCloud.get_stock_data(args.stock, args.date[0])
     elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = iex.get_stock_data(args.stock, args.date[0], args.date[1])
+        stock_data = iex.IEXCloud.get_stock_data(args.stock, args.date[0], args.date[1])
     else:
         print("There either isn't a date or a stock.")
 
