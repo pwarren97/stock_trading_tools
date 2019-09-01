@@ -1,6 +1,9 @@
 from os import sys
 import argparse
-from sources.iex import IEXCloud
+import conf
+
+if conf.data_source == "iex":
+    from sources.iex import IEXCloud as source
 
 # parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
@@ -17,9 +20,9 @@ else:
     stock_data = None
 
     if len(args.date) == 1:
-        stock_data = IEXCloud.get_stock_data(args.stock, args.date[0])
+        stock_data = source.get_stock_data(args.stock, args.date[0])
     elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = IEXCloud.get_stock_data(args.stock, args.date[0], args.date[1])
+        stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1])
     else:
         print("There either isn't a date or a stock.")
 
