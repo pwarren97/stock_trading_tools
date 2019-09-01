@@ -2,17 +2,20 @@ from os import sys
 import argparse
 import conf
 
+# import the appropriate class as source for the source indicated in the conf.py file
 if conf.data_source == "iex":
     from sources.iex import IEXCloud as source
+# elif conf.data_source == "someotherone":
+#     from sources.iex import ThatObject as source
+
 
 # parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
 parser.add_argument("-d", "--date", nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
 args = parser.parse_args()
-# print(args.stock)
-# print(args.date)
 
+# If the options weren't entered right
 if args.stock == None or args.date == None:
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
