@@ -1,4 +1,3 @@
-from os import sys
 import argparse
 import conf
 
@@ -9,7 +8,7 @@ if conf.data_source == "iex":
 #     from sources.iex import ThatObject as source
 
 
-# parse the command line input
+# Parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
 parser.add_argument("-d", "--date", nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
@@ -30,3 +29,6 @@ else:
         print("There either isn't a date or a stock.")
 
     print(stock_data)
+
+
+# Pass the data off to the database

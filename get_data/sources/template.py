@@ -10,4 +10,7 @@ class Source():
 
     @staticmethod
     def get_symbols():
+        """
+        Return the symbols of the stock market in a pandas object
+        """
         raise NotImplementedError

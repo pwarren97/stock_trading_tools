@@ -1,4 +1,6 @@
 # This file will represent all models
 
-class Model():
-    
+class Model:
+    @staticmethod
+    def save_stock_data(rel_table):
+        pass
