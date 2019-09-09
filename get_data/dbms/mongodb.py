@@ -1,4 +1,4 @@
-import Model
+from Model import Model
 import pymongo
 
 class Mongo(Model):
