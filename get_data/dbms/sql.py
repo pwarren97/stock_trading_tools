@@ -1,6 +1,6 @@
 from Model import Model
 
-class Mongo(Model):
+class SQL(Model):
     """
     Class for communicatin with a SQL database
 
@@ -11,4 +11,3 @@ class Mongo(Model):
 
     @staticmethod
     def save_stock_data(pandas_obj):
-        
