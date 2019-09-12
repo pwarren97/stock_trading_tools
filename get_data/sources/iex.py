@@ -44,6 +44,9 @@ class IEXCloud(Source):
             # if the start date is in the wrong place but hasn't
             # been handled correctly by __main__.py
             raise ValueError("The start needs to come before the end.")
+
+        if len(ticker_symbol) > 1 and stock_data != None:
+
         return stock_data
 
     @staticmethod
