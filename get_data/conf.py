@@ -1,6 +1,7 @@
 # Configuration file containing relevant information
 
 # [ Database Information]
+db = "mongodb"
 # [ SQL ]
 sql_socket=""
 sql_username=""
