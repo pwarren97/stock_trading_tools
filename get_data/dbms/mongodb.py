@@ -21,3 +21,7 @@ class Mongo(Model):
         """
         if not isinstance(pandas_obj, list):
             raise TypeError("The pandas object must be in a list")
+
+        # Should check to make sure the pandas object format is correct
+
+        
