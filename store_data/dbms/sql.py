@@ -2,7 +2,7 @@ from Model import Model
 
 class SQL(Model):
     """
-    Class for communicatin with a SQL database
+    Class for communication with a SQL database
 
     Contains functions:
     """
