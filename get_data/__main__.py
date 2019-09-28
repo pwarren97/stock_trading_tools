@@ -2,16 +2,16 @@ import argparse
 import conf
 
 # import the appropriate class as source for the source indicated in the conf.py file
-if conf.data_source == "iex":
+if conf.DATA_SOURCE == "iex":
     from sources.iex import IEXCloud as source
-# elif conf.data_source == "someotherone":
+# elif conf.DATA_SOURCE == "someotherone":
 #     from sources.iex import ThatObject as source
 
-if conf.db == "mongodb":
+if conf.DB == "mongodb":
     from dbms.mongodb import Mongo as dbms
-elif conf.db == "sql":
+elif conf.DB == "sql":
     from dbms.sql import SQL as dbms
-    
+
 # Parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")

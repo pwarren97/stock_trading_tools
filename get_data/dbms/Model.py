@@ -2,9 +2,9 @@
 
 class Model:
     @staticmethod
-    def save_stock_data(rel_table):
+    def save_stock_data(data_frames):
         pass
 
     @staticmethod
-    def save_symbols(rel_table):
+    def save_symbols(data_frames):
         pass

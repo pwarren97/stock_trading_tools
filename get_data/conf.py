@@ -1,19 +1,19 @@
 # Configuration file containing relevant information
 
 # [ Database Information]
-db = "mongodb"
+DB = "mongodb"
 # [ SQL ]
-sql_socket=""
-sql_username=""
-sql_password=""
+SQL_SOCKET=""
+SQL_USERNAME=""
+SQL_PASSWORD=""
 
 # [ MongoDB ]
-mongo_socket=""
+MONGO_SOCKET=""
 
 
 # [ Stock Data Source ]
 # [ General Information]
-data_source="iex"
+DATA_SOURCE="iex"
 
 # [ IEX ]
-iex_token="pk_82f39a5069f646f08be56cb2f5d7eea7"
+IEX_TOKEN="pk_82f39a5069f646f08be56cb2f5d7eea7"
