@@ -51,4 +51,12 @@ class IEXCloud(Source):
         """
         Returns all the symbols
         """
-        return iexfinance.refdata.get_symbols()
+        symbols = iexfinance.refdata.get_symbols()
+
+        # Remove IEX specific info
+        del symbols["Id"]
+        del symbols["iexId"]
+        del symbols["isEnabled"]
+        del symbols["currency"]
+
+        return symbols

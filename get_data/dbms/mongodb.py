@@ -26,18 +26,28 @@ class Mongo(Model):
         AAPL        20190107    148.7   148.83  145.9   147.93     54777764
         """
         if not isinstance(data_frames, list):
-            raise TypeError("The pandas object must be in a list")
+            raise TypeError("The pandas objects must be in a list")
 
-        # TODO: Should check to make sure the pandas object format is correct
+        # TODO: Should check to make sure the pandas object is in the proper format
 
         # Store the data row by row
-        for pandas_df in data_frames:
-            for idx in range(len(pandas_df)):
-                row = pandas_df.loc[idx].to_json()
+        for data_frame in data_frames:
+            for idx in range(len(data_frame)):
+                row = data_frame.loc[idx].to_json()
                 db.stocks.insert_one(row)
 
     @staticmethod
-    def save_symbols(pandas_obj):
+    def save_symbols(data_frames):
         """
         Saves symbols to the database.
         """
+        if not isinstance(data_frames, list):
+            raise TypeError("The pandas objects must be in a list")
+
+        #TODO: Should check to make sure the pandas object is in the proper format
+
+        # save the symbols now row by row
+        for data_frame in data_frames:
+            for idx in range(len(data_frame)):
+                row = data_frame.loc[idx].to_json()
+                db.stocks.insert_one(row)
