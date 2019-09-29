@@ -9,9 +9,9 @@ class Mongo(Model):
     save_stock_data()
     """
 
-    def __init__():
-        client = pymongo.MongoClient("mongodb://localhost:27017/")
-        db = client["stocks"]
+    # def __init__():
+    #     client = pymongo.MongoClient("mongodb://localhost:27017/")
+    #     db = client["stocks"]
 
     @staticmethod
     def save_stock_data(data_frames):
@@ -28,30 +28,28 @@ class Mongo(Model):
         if not isinstance(data_frames, list):
             raise TypeError("The pandas objects must be in a list")
 
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        db = client["stocks"]
+
         # TODO: Should check to make sure the pandas object is in the proper format
 
         # Store the data row by row
         for data_frame in data_frames:
             for idx in range(len(data_frame)):
-                row = data_frame.loc[idx].to_json()
+                row = data_frame.loc[idx].to_dict()
                 db.stocks.insert_one(row)
 
     @staticmethod
     def save_symbols(data_frame):
         """
-        Saves symbols to the database.
+        Saves symbols to the database. Must be in a pandas object.
         """
-        if not isinstance(data_frame, list):
-            raise TypeError("The pandas objects must be in a list")
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        db = client["stocks"]
 
         #TODO: Should check to make sure the pandas object is in the proper format
 
-        # get rid of the symbols not being used
-        del symbols["Id"]
-        del symbols["iexId"]
-        del symbols["isEnabled"]
-
         # save the symbols now row by row
         for idx in range(len(data_frame)):
-            row = data_frame.loc[idx].to_json()
+            row = data_frame.loc[idx].to_dict()
             db.symbols.insert_one(row)

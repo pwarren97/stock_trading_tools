@@ -37,9 +37,9 @@ class IEXCloud(Source):
 
         # Get the data from online
         if end == None:
-            return get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN)
+            return get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
         elif int(start) < int(end):
-            return get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN)
+            return get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
         else:
             # if the start date is in the wrong place but hasn't
             # been handled correctly by __main__.py
@@ -51,12 +51,11 @@ class IEXCloud(Source):
         """
         Returns all the symbols
         """
-        symbols = iexfinance.refdata.get_symbols()
+        symbols = iexfinance.refdata.get_symbols(output_format='pandas', token=conf.IEX_TOKEN)
 
         # Remove IEX specific info
-        del symbols["Id"]
+        print(symbols.columns)
         del symbols["iexId"]
         del symbols["isEnabled"]
-        del symbols["currency"]
 
         return symbols

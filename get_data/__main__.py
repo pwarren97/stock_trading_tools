@@ -16,10 +16,14 @@ elif conf.DB == "sql":
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
 parser.add_argument("-d", "--date", nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
+parser.add_argument("--symbols", help="download symbols if they are not in the database", action="store_true")
 args = parser.parse_args()
 
 # If the options weren't entered right
-if args.stock == None or args.date == None:
+if args.symbols:
+    symbols = source.get_symbols()
+    dbms.save_symbols(symbols)
+elif args.stock == None or args.date == None:
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
     # Get the historical stock data from the internet
@@ -31,8 +35,6 @@ else:
         stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1])
     else:
         print("There either isn't a date or a stock.")
-
-    print(stock_data)
 
 
 # Pass the data off to the database
