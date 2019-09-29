@@ -37,17 +37,21 @@ class Mongo(Model):
                 db.stocks.insert_one(row)
 
     @staticmethod
-    def save_symbols(data_frames):
+    def save_symbols(data_frame):
         """
         Saves symbols to the database.
         """
-        if not isinstance(data_frames, list):
+        if not isinstance(data_frame, list):
             raise TypeError("The pandas objects must be in a list")
 
         #TODO: Should check to make sure the pandas object is in the proper format
 
+        # get rid of the symbols not being used
+        del symbols["Id"]
+        del symbols["iexId"]
+        del symbols["isEnabled"]
+
         # save the symbols now row by row
-        for data_frame in data_frames:
-            for idx in range(len(data_frame)):
-                row = data_frame.loc[idx].to_json()
-                db.stocks.insert_one(row)
+        for idx in range(len(data_frame)):
+            row = data_frame.loc[idx].to_json()
+            db.symbols.insert_one(row)

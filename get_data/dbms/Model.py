@@ -16,5 +16,5 @@ class Model:
         pass
 
     @staticmethod
-    def save_symbols(data_frames):
+    def save_symbols(data_frame):
         pass
