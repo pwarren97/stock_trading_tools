@@ -29,10 +29,13 @@ else:
     # Get the historical stock data from the internet
     stock_data = None
 
+    # Single date passed through -d | --date optional argument
     if len(args.date) == 1:
         stock_data = source.get_stock_data(args.stock, args.date[0])
+        dbms.save_stock_data([stock_data])
     elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
         stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1])
+        dbms.save_stock_data([stock_data])
     else:
         print("There either isn't a date or a stock.")
 

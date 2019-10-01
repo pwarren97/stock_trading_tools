@@ -1,4 +1,5 @@
 from Model import Model
+import pandas as pd
 import pymongo
 
 class Mongo(Model):
@@ -33,11 +34,17 @@ class Mongo(Model):
 
         # TODO: Should check to make sure the pandas object is in the proper format
 
+
         # Store the data row by row
         for data_frame in data_frames:
+            # Change datetime label for each row into being an actual column
+            data_frame['date'] = data_frame.index
+            print(data_frame)
             for idx in range(len(data_frame)):
-                row = data_frame.loc[idx].to_dict()
-                db.stocks.insert_one(row)
+                data_frame.iloc[idx]
+                row = data_frame.iloc[idx].to_dict()
+                # Update is used here instead of insert too avoid duplicates
+                db.stocks.update_one(row, { "$set": row }, upsert=True)
 
     @staticmethod
     def save_symbols(data_frame):
