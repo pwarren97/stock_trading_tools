@@ -1,7 +1,7 @@
 import argparse
 import conf
 
-# import the appropriate class as source for the source indicated in the conf.py file
+# import the appropriate source and dbms as indicated in the conf.py file
 if conf.DATA_SOURCE == "iex":
     from sources.iex import IEXCloud as source
 # elif conf.DATA_SOURCE == "someotherone":

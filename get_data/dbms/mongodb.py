@@ -43,7 +43,7 @@ class Mongo(Model):
             for idx in range(len(data_frame)):
                 data_frame.iloc[idx]
                 row = data_frame.iloc[idx].to_dict()
-                # Update is used here instead of insert too avoid duplicates
+                # Update is used here instead of insert to avoid duplicates
                 db.stocks.update_one(row, { "$set": row }, upsert=True)
 
     @staticmethod
@@ -59,4 +59,5 @@ class Mongo(Model):
         # save the symbols now row by row
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
-            db.symbols.insert_one(row)
+            # Update is used here instead of insert to avoid duplicates
+            db.symbols.update(row, { "$set" : row}, upsert=True)
