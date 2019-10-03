@@ -1,6 +1,7 @@
 from iexfinance.stocks import get_historical_data
 import iexfinance.refdata
 import conf
+import pandas as pd
 from template import Source
 
 """
@@ -35,16 +36,21 @@ class IEXCloud(Source):
             if not isinstance(item, str):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
-        # Get the data from online
+        # If an end date is specified
         if end == None:
-            return get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
+            data_frame = get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
+
         elif int(start) < int(end):
-            return get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
+            data_frame =  get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=True)
         else:
             # if the start date is in the wrong place but hasn't
             # been handled correctly by __main__.py
             raise ValueError("The start needs to come before the end.")
-        return stock_data
+
+        # Add extra information to the table
+        data_frame['date'] = data_frame.index
+        data_frame['symbol'] = ticker_symbol[0].upper()
+        return data_frame
 
     @staticmethod
     def get_symbols():

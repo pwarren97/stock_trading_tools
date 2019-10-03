@@ -37,13 +37,12 @@ class Mongo(Model):
 
         # Store the data row by row
         for data_frame in data_frames:
-            # Change datetime label for each row into being an actual column
-            data_frame['date'] = data_frame.index
+            print("Data saved to the database looks as follows:")
             print(data_frame)
             for idx in range(len(data_frame)):
                 data_frame.iloc[idx]
                 row = data_frame.iloc[idx].to_dict()
-                # Update is used here instead of insert to avoid duplicates
+                # Update is used here instead of insert too avoid duplicates
                 db.stocks.update_one(row, { "$set": row }, upsert=True)
 
     @staticmethod
@@ -59,5 +58,5 @@ class Mongo(Model):
         # save the symbols now row by row
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
-            # Update is used here instead of insert to avoid duplicates
+            # Update is used here instead of inse
             db.symbols.update(row, { "$set" : row}, upsert=True)
