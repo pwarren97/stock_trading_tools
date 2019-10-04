@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
 parser.add_argument("-d", "--date", nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
 parser.add_argument("--symbols", help="download symbols if they are not in the database", action="store_true")
+parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
 # If the options weren't entered right
@@ -31,11 +32,11 @@ else:
 
     # Single date passed through -d | --date optional argument
     if len(args.date) == 1:
-        stock_data = source.get_stock_data(args.stock, args.date[0])
-        dbms.save_stock_data([stock_data])
+        stock_data = source.get_stock_data(args.stock, args.date[0], close_only=args.close_only)
+        dbms.save_stock_data(stock_data)
     elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1])
-        dbms.save_stock_data([stock_data])
+        stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1], close_only=args.close_only)
+        dbms.save_stock_data(stock_data)
     else:
         print("There either isn't a date or a stock.")
 
