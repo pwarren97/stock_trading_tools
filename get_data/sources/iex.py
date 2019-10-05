@@ -4,6 +4,12 @@ import conf
 import pandas as pd
 from template import Source
 
+# DB
+if conf.DB == "mongodb":
+    from dbms.mongodb import Mongo as dbms
+elif conf.DB == "sql":
+    from dbms.sql import SQL as dbms
+
 """
 This module covers iextrading based communication.
 
@@ -43,13 +49,16 @@ class IEXCloud(Source):
             for ticker_symbol in ticker_symbols:
                 data_frame = get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
                 data_frame['date'] = data_frame.index
+                data_frame.index.name = None
+                data_frame.index = range(len(data_frame))
                 data_frame['symbol'] = ticker_symbol.upper()
                 data_frames.append(data_frame)
-
         elif int(start) < int(end):
             for ticker_symbol in ticker_symbols:
                 data_frame = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
                 data_frame['date'] = data_frame.index
+                data_frame.index.name = None
+                data_frame.index = range(len(data_frame))
                 data_frame['symbol'] = ticker_symbol.upper()
                 data_frames.append(data_frame)
         else:
