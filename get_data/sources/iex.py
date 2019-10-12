@@ -5,21 +5,21 @@ import pandas as pd
 from template import Source
 
 # DB
+# database information gets used to check what data to use from the database
 if conf.DB == "mongodb":
     from dbms.mongodb import Mongo as dbms
 elif conf.DB == "sql":
     from dbms.sql import SQL as dbms
 
-"""
-This module covers iextrading based communication.
-
-functions:
-get_stock_data(ticker_symbol, start, end=None)
-get_symbols()
-"""
 class IEXCloud(Source):
     """
-    Class representing the connection to IEXCloud
+    Class representing the connection to the IEXCloud platform.
+    It inherits from the Source class in template.py,
+    <get_data.sources.template.Source>.
+
+    functions:
+    get_stocks_data(ticker_symbol, start, end=None, close_only=False)
+    get_symbols()
     """
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None, close_only=False):
@@ -42,25 +42,35 @@ class IEXCloud(Source):
             if not isinstance(item, str):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
+        if end==None:
+            end = str(int(start) + 1)
+
+        if not int(start) < int(end):
+            raise ValueError("The start needs to come before the end.")
+
+        # Check if data is in the database
+        pd_obj = dbms.get_stock_data(ticker_symbols, (start, end))
+
         data_frames = []
 
         # If an end date is specified
         if end == None:
             for ticker_symbol in ticker_symbols:
+                # Pull data
                 data_frame = get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                data_frame['date'] = data_frame.index
-                data_frame.index.name = None
-                data_frame.index = range(len(data_frame))
-                data_frame['symbol'] = ticker_symbol.upper()
-                data_frames.append(data_frame)
+
+                # Restructure the data to have the appropriate format
+                restructure_df(data_frame, ticker_symbol)
+                data_frame.append(data_frame)
+        # If end and start date is specified and is correct
         elif int(start) < int(end):
             for ticker_symbol in ticker_symbols:
+                # Pull data
                 data_frame = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                data_frame['date'] = data_frame.index
-                data_frame.index.name = None
-                data_frame.index = range(len(data_frame))
-                data_frame['symbol'] = ticker_symbol.upper()
-                data_frames.append(data_frame)
+
+                # Restructure the data to have the appropriate format
+                restructure_df(data_frame, ticker_symbol)
+                data_frame.append(data_frame)
         else:
             # if the start date is in the wrong place but hasn't
             # been handled correctly by __main__.py
@@ -81,3 +91,12 @@ class IEXCloud(Source):
         del symbols["isEnabled"]
 
         return symbols
+
+# Makes data frame format correct for IEXCloud
+# This function is just for use in this file, not to be supplied elsewhere
+def restructure_df(data_frame, ticker_symbol):
+    data_frame['date'] = data_frame.index
+    data_frame.index.name = None
+    data_frame.index = range(len(data_frame))
+    data_frame['symbol'] = ticker_symbol.upper()
+    return data_frame
