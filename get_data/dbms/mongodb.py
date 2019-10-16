@@ -98,12 +98,12 @@ class Mongo(Model):
             # cursor pulls data when you want to access it, such as in a for loop
             # data will go away after a full iteration in a for loop
             cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : dates[0], "$lte" : dates[1]} })
-
+            print(cursor)
             results[ticker_symbol] = pd.DataFrame()
             for item in cursor:
+                results[ticker_symbol] = results[ticker_symbol].append(item, ignore_index=True)
 
-                results[ticker_symbol].append(item)
-
+        return results
 
 
 
