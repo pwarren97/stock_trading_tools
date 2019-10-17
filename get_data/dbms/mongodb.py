@@ -116,7 +116,7 @@ class Mongo(Model):
         """
         Saves symbols to the database. Must be in a pandas object.
         """
-
+        print(data_frame.columns)
         #TODO: Should check to make sure the pandas object is in the proper format
 
         # save the symbols now row by row

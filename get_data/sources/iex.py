@@ -86,7 +86,6 @@ class IEXCloud(Source):
         symbols = iexfinance.refdata.get_symbols(output_format='pandas', token=conf.IEX_TOKEN)
 
         # Remove IEX specific info
-        print(symbols.columns)
         del symbols["iexId"]
         del symbols["isEnabled"]
 
