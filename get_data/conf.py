@@ -8,7 +8,7 @@ SQL_USERNAME=""
 SQL_PASSWORD=""
 
 # [ MongoDB ]
-MONGO_SOCKET=""
+MONGO_SOCKET="mongodb://localhost:27017/"
 
 
 # [ Stock Data Source ]

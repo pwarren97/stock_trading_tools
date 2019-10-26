@@ -3,6 +3,7 @@ import iexfinance.refdata
 import conf
 import pandas as pd
 from template import Source
+from datetime import date
 
 # DB
 # database information gets used to check what data to use from the database
@@ -33,9 +34,9 @@ class IEXCloud(Source):
         # Force all the types to be appropriate
         if not isinstance(ticker_symbols, list):
             raise TypeError("ticker_symbol must be a list.")
-        elif not isinstance(start, str):
+        elif not isinstance(start, date):
             raise TypeError("start must be a string.")
-        elif not isinstance(end, str) and not end == None:
+        elif not isinstance(end, date) and not end == None:
             raise TypeError("end must be a string.")
 
         for item in ticker_symbols:
@@ -43,7 +44,7 @@ class IEXCloud(Source):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
         if end==None:
-            end = str(int(start) + 1)
+            end = date(start.year, start.month, start.day)
 
         if not int(start) < int(end):
             raise ValueError("The start needs to come before the end.")

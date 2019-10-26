@@ -24,4 +24,4 @@ def run():
 
     # Get data
     result = dbms.get_stock_data(["AAPL"], ("20190102", "20190107"))
-    print(result)
+    print(type(result["AAPL"]))

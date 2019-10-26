@@ -18,7 +18,7 @@ class Model:
     @staticmethod
     def get_stock_data(dates):
         pass
-        
+
     @staticmethod
     def save_symbols(data_frame):
         pass
