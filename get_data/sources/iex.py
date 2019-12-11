@@ -3,7 +3,7 @@ import iexfinance.refdata
 import conf
 import pandas as pd
 from template import Source
-from datetime import date
+from datetime import datetime
 
 # DB
 # database information gets used to check what data to use from the database
@@ -34,19 +34,19 @@ class IEXCloud(Source):
         # Force all the types to be appropriate
         if not isinstance(ticker_symbols, list):
             raise TypeError("ticker_symbol must be a list.")
-        elif not isinstance(start, date):
-            raise TypeError("start must be a string.")
-        elif not isinstance(end, date) and not end == None:
-            raise TypeError("end must be a string.")
+        elif not isinstance(start, datetime):
+            raise TypeError("start must be a datetime.date object.")
+        elif not isinstance(end, datetime) and not end == None:
+            raise TypeError("end must be a datetime.date object.")
 
         for item in ticker_symbols:
             if not isinstance(item, str):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
         if end==None:
-            end = date(start.year, start.month, start.day)
+            end = datetime(start.year, start.month, start.day)
 
-        if not int(start) < int(end):
+        if not start < end:
             raise ValueError("The start needs to come before the end.")
 
         # Check if data is in the database
@@ -64,7 +64,7 @@ class IEXCloud(Source):
                 restructure_df(data_frame, ticker_symbol)
                 data_frame.append(data_frame)
         # If end and start date is specified and is correct
-        elif int(start) < int(end):
+        elif start < end:
             for ticker_symbol in ticker_symbols:
                 # Pull data
                 data_frame = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)

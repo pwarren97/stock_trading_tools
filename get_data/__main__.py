@@ -1,5 +1,6 @@
 import argparse
 import conf
+from datetime import datetime
 
 # import the appropriate source and dbms as indicated in the conf.py file
 if conf.DATA_SOURCE == "iex":
@@ -20,6 +21,11 @@ parser.add_argument("--symbols", help="download symbols if they are not in the d
 parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
+# create start and end date datetime.date objects
+start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:7]), int(args.date[0][7:]))
+if len(args.date) == 2:
+    end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:7]), int(args.date[1][7:]))
+
 # If the options weren't entered right
 if args.symbols:
     symbols = source.get_symbols()
@@ -32,10 +38,10 @@ else:
 
     # Single date passed through -d | --date optional argument
     if len(args.date) == 1:
-        stock_data = source.get_stock_data(args.stock, args.date[0], close_only=args.close_only)
+        stock_data = source.get_stock_data(args.stock, start_date, close_only=args.close_only)
         dbms.save_stock_data(stock_data)
     elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = source.get_stock_data(args.stock, args.date[0], args.date[1], close_only=args.close_only)
+        stock_data = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
         dbms.save_stock_data(stock_data)
     else:
         print("There either isn't a date or a stock.")
