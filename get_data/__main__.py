@@ -21,6 +21,7 @@ parser.add_argument("--symbols", help="download symbols if they are not in the d
 parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
+
 # create start and end date datetime.date objects
 start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:7]), int(args.date[0][7:]))
 if len(args.date) == 2:
@@ -44,7 +45,7 @@ else:
         stock_data = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
         dbms.save_stock_data(stock_data)
     else:
-        print("There either isn't a date or a stock.")
+        print("There isn't a date, stock, or the dates aren't in order.")
 
 
 # Pass the data off to the database

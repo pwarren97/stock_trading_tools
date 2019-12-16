@@ -44,40 +44,23 @@ class IEXCloud(Source):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
         if end==None:
-            end = datetime(start.year, start.month, start.day)
+            end = datetime(start.year, start.month, start.day+1)
 
         if not start < end:
             raise ValueError("The start needs to come before the end.")
 
         # Check if data is in the database
-        pd_obj = dbms.get_stock_data(ticker_symbols, (start, end))
+        # pd_obj_dict = dbms.get_stock_data(ticker_symbols, (start, end))
 
-        data_frames = []
+        data = pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume", "symbol"])
 
-        # If an end date is specified
-        if end == None:
-            for ticker_symbol in ticker_symbols:
-                # Pull data
-                data_frame = get_historical_data(ticker_symbol, start, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-
-                # Restructure the data to have the appropriate format
-                restructure_df(data_frame, ticker_symbol)
-                data_frame.append(data_frame)
-        # If end and start date is specified and is correct
-        elif start < end:
-            for ticker_symbol in ticker_symbols:
-                # Pull data
-                data_frame = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-
-                # Restructure the data to have the appropriate format
-                restructure_df(data_frame, ticker_symbol)
-                data_frame.append(data_frame)
-        else:
-            # if the start date is in the wrong place but hasn't
-            # been handled correctly by __main__.py
-            raise ValueError("The start needs to come before the end.")
-
-        return data_frames
+        for ticker_symbol in ticker_symbols:
+            # Pull data
+            temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+            # Restructure the data to have the appropriate format
+            temp = restructure_df(temp, ticker_symbol)
+            data = data.append(temp, sort=True)
+        return data
 
     @staticmethod
     def get_symbols():
