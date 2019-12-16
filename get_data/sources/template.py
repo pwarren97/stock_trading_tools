@@ -2,7 +2,7 @@
 
 class Source():
     @staticmethod
-    def get_stock_data(ticker_symbol, start, end=None):
+    def get_stock_data(ticker_symbols, start, end=None, close_only=False):
         """
         Return pandas object with open, high, low, close, volume
         """
