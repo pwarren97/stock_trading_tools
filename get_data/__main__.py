@@ -23,9 +23,9 @@ args = parser.parse_args()
 
 
 # create start and end date datetime.date objects
-start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:7]), int(args.date[0][7:]))
+start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
 if len(args.date) == 2:
-    end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:7]), int(args.date[1][7:]))
+    end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:6]), int(args.date[1][6:]))
 
 # If the options weren't entered right
 if args.symbols:

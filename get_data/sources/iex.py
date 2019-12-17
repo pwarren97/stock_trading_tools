@@ -52,7 +52,10 @@ class IEXCloud(Source):
         # Check if data is in the database
         # pd_obj_dict = dbms.get_stock_data(ticker_symbols, (start, end))
 
-        data = pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume", "symbol"])
+        if close_only:
+            data = pd.DataFrame(columns=["date", "close", "volume", "symbol"])
+        else:
+            data = pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume", "symbol"])
 
         for ticker_symbol in ticker_symbols:
             # Pull data
