@@ -29,7 +29,7 @@ class IEXCloud(Source):
         Parameters must be in the form of strings.
         Ticker symbol does not have to be case sensitive, but it does have to be a list
 
-        Returns columns: date open high low close volume symbol
+        Returns columns: symbol date open high low close volume
         """
         # Force all the types to be appropriate
         if not isinstance(ticker_symbols, list):
@@ -50,19 +50,20 @@ class IEXCloud(Source):
             raise ValueError("The start needs to come before the end.")
 
         # Check if data is in the database
-        # pd_obj_dict = dbms.get_stock_data(ticker_symbols, (start, end))
+        # Returns a dict of all the stock data
+        db_data = dbms.get_stock_data(ticker_symbols, (start, end))
 
         if close_only:
-            data = pd.DataFrame(columns=["date", "close", "volume", "symbol"])
+            data = pd.DataFrame(columns=["symbol", "date", "close", "volume"])
         else:
-            data = pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume", "symbol"])
+            data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
         for ticker_symbol in ticker_symbols:
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
             # Restructure the data to have the appropriate format
-            temp = restructure_df(temp, ticker_symbol)
-            data = data.append(temp, sort=True)
+            temp = restructure_df(temp, ticker_symbol, close_only)
+            data = data.append(temp)
         return data
 
     @staticmethod
@@ -80,9 +81,13 @@ class IEXCloud(Source):
 
 # Makes data frame format correct for IEXCloud
 # This function is just for use in this file, not to be supplied elsewhere
-def restructure_df(data_frame, ticker_symbol):
+def restructure_df(data_frame, ticker_symbol, close_only):
     data_frame['date'] = data_frame.index
     data_frame.index.name = None
     data_frame.index = range(len(data_frame))
     data_frame['symbol'] = ticker_symbol.upper()
+    if close_only:
+        data_frame = data_frame[["symbol", "date", "close", "volume"]]
+    else:
+        data_frame = data_frame[["symbol", "date", "open", "high", "low", "close", "volume"]]
     return data_frame

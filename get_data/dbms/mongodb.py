@@ -43,14 +43,13 @@ class Mongo(Model):
         # TODO: Should check to make sure the pandas object is in the proper format
 
         # Store the data row by row
-        print("Data saved to the database looks as follows:")
-        print(data_frame)
         for idx in range(len(data_frame)):
             data_frame.iloc[idx]
             row = data_frame.iloc[idx].to_dict()
             # Update is used here instead of insert too avoid duplicates
             db.stocks.update_one(row, { "$set": row }, upsert=True)
-        print("\n")
+        print("Data saved to the database looks as follows:")
+        print(data_frame)
 
     @staticmethod
     def get_stock_data(ticker_symbols, dates):

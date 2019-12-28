@@ -14,7 +14,7 @@ echo "./get_data.sh -s aapl msft -d 20190102 20190104 --close_only"
 
 # Test 3
 printf "\nTest 3:\n"
-echo "./get_data.sh -s MSFT -d 20190101 20190201 --close_only"
+echo "./get_data.sh -s MSFT -d 20190102 20190104 --close_only"
 ./get_data.sh -s MSFT -d 20190101 20190201 --close_only
 
 
