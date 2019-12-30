@@ -36,7 +36,7 @@ if args.date[0]:
         end_date = start_date + timedelta(days=1)
 
 # Handle all the options
-if args.symbols and (args.date or args.stock):
+if args.symbols and (args.date or args.stock): # Stock data and symbols can't be pulled at the same time
     print("You cannot pull stock data and symbols at the same time. Use -h or --help to see the options.")
 elif args.symbols: # handle downloading symbols
     symbols = source.get_symbols()
@@ -52,6 +52,3 @@ else:
         dbms.save_stock_data(stock_df)
     else:
         print("There isn't a date, stock, or the dates aren't in order.")
-
-
-# Pass the data off to the database

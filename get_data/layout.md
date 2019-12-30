@@ -1,3 +1,6 @@
+# get_data program
+
+
 [ root ]
 get_data/
   Base directory of the whole program. Start with python get_data or the get_data.sh file.

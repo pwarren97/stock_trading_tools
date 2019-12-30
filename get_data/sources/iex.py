@@ -30,6 +30,8 @@ class IEXCloud(Source):
         Ticker symbol does not have to be case sensitive, but it does have to be a list
 
         Returns columns: symbol date open high low close volume
+
+        For close_only: symbol date close volume
         """
         # Force all the types to be appropriate
         if not isinstance(ticker_symbols, list):
