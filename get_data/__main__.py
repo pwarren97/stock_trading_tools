@@ -1,6 +1,6 @@
 import argparse
 import conf
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # import the appropriate source and dbms as indicated in the conf.py file
 if conf.DATA_SOURCE == "iex":
@@ -23,11 +23,16 @@ args = parser.parse_args()
 
 
 # create start and end date datetime.date objects
-start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
-if len(args.date) == 2:
-    end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:6]), int(args.date[1][6:]))
+if args.date[0]:
+    start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
 
-# If the options weren't entered right
+    if len(args.date) == 2:
+        end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:6]), int(args.date[1][6:]))
+    elif len(args.date) == 1:
+        # makes end_date one day ahead of start_date
+        end_date = start_date + timedelta(days=1)
+
+# handle options
 if args.symbols:
     symbols = source.get_symbols()
     dbms.save_symbols(symbols)
@@ -35,15 +40,12 @@ elif args.stock == None or args.date == None:
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
     # Get the historical stock data from the internet
-    stock_data = None
-
     # Single date passed through -d | --date optional argument
-    if len(args.date) == 1:
-        stock_data = source.get_stock_data(args.stock, start_date, close_only=args.close_only)
-        dbms.save_stock_data(stock_data)
-    elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
-        dbms.save_stock_data(stock_data)
+    if start_date < end_date:
+        stock_df = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
+        print("Data saved to the database looks as follows:")
+        print(stock_df)
+        dbms.save_stock_data(stock_df)
     else:
         print("There isn't a date, stock, or the dates aren't in order.")
 

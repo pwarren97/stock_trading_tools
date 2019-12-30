@@ -48,8 +48,6 @@ class Mongo(Model):
             row = data_frame.iloc[idx].to_dict()
             # Update is used here instead of insert too avoid duplicates
             db.stocks.update_one(row, { "$set": row }, upsert=True)
-        print("Data saved to the database looks as follows:")
-        print(data_frame)
 
     @staticmethod
     def get_stock_data(ticker_symbols, dates):
