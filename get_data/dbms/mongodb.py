@@ -88,9 +88,9 @@ class Mongo(Model):
         # elif all(isinstance(item, str) for item in ticker_symbols):
         #     raise TypeError("Items in the ticker_symbols list must be strings")
         elif not isinstance(dates[0], datetime):
-            raise TypeError("Dates passed through must be datetime.date inside of a tuple")
+            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
         elif not isinstance(dates[1], datetime):
-            raise TypeError("Dates passed through must be datetime.date inside of a tuple")
+            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
         # elif not dates[0] < dates[1]:
         #     raise TypeError("Start date must be less than end date")
 

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from test_modules import test_dbms
 
 # These tests are designed to test certain components of the program
