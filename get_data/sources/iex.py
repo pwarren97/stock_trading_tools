@@ -2,7 +2,7 @@ from iexfinance.stocks import get_historical_data
 import iexfinance.refdata
 import conf
 import pandas as pd
-from template import Source
+from Model import Source
 from datetime import datetime
 
 # DB
