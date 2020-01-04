@@ -4,7 +4,7 @@ class Source():
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None, close_only=False):
         """
-        Return pandas object with open, high, low, close, volume
+        Return pandas object with symbol, date, open, high, low, close, volume
         """
         raise NotImplementedError
 
