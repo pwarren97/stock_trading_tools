@@ -1,3 +1,6 @@
+# get_data program
+
+
 [ root ]
 get_data/
   Base directory of the whole program. Start with python get_data or the get_data.sh file.
@@ -15,6 +18,10 @@ get_data/sources/
     used for trading with iexcloud.
   iex.md
     explains dependencies required for iex.py
-  sources_information.md
-    Explains the template for all of the sources all in one place. After importing
-    each source, the functions should all match that template and work the same.
+
+[ sources/installer_scripts/ Directory ]
+get_data/sources/installer_scripts/
+  The scripts inside here are the installer scripts for all python modules necessary and the corresponding versioning needed.
+
+  iex_finance.sh
+    Installer script for iexcloud related python modules.

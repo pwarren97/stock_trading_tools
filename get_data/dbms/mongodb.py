@@ -17,7 +17,7 @@ class Mongo(Model):
     """
 
     @staticmethod
-    def save_stock_data(data_frames):
+    def save_stock_data(data_frame):
         """
         Saves a list of pandas objects to the database with columns:
 
@@ -37,21 +37,17 @@ class Mongo(Model):
         AAPL        20190104    148.26     58607070
         AAPL        20190107    147.93     54777764
         """
-        if not isinstance(data_frames, list):
-            raise TypeError("The pandas objects must be in a list")
+        if not isinstance(data_frame, pd.DataFrame):
+            raise TypeError("The pandas object must be a pandas dataframe")
 
         # TODO: Should check to make sure the pandas object is in the proper format
 
         # Store the data row by row
-        for data_frame in data_frames:
-            print("Data saved to the database looks as follows:")
-            print(data_frame)
-            for idx in range(len(data_frame)):
-                data_frame.iloc[idx]
-                row = data_frame.iloc[idx].to_dict()
-                # Update is used here instead of insert too avoid duplicates
-                db.stocks.update_one(row, { "$set": row }, upsert=True)
-            print("\n")
+        for idx in range(len(data_frame)):
+            data_frame.iloc[idx]
+            row = data_frame.iloc[idx].to_dict()
+            # Update is used here instead of insert too avoid duplicates
+            db.stocks.update_one(row, { "$set": row }, upsert=True)
 
     @staticmethod
     def get_stock_data(ticker_symbols, dates):
@@ -88,9 +84,9 @@ class Mongo(Model):
         # elif all(isinstance(item, str) for item in ticker_symbols):
         #     raise TypeError("Items in the ticker_symbols list must be strings")
         elif not isinstance(dates[0], datetime):
-            raise TypeError("Dates passed through must be datetime.date inside of a tuple")
+            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
         elif not isinstance(dates[1], datetime):
-            raise TypeError("Dates passed through must be datetime.date inside of a tuple")
+            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
         # elif not dates[0] < dates[1]:
         #     raise TypeError("Start date must be less than end date")
 

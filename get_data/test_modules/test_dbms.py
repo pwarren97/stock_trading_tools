@@ -1,16 +1,16 @@
 from dbms.mongodb import Mongo as dbms
 import pandas as pd
-import datetime
+from datetime import datetime
 """
 Coverage:
 
 """
 def run():
     # set data
-    dates = [ datetime.datetime(2019, 01, 02),
-              datetime.datetime(2019, 01, 03),
-              datetime.datetime(2019, 01, 04),
-              datetime.datetime(2019, 01, 07) ]
+    dates = [ datetime(2019, 01, 02),
+              datetime(2019, 01, 03),
+              datetime(2019, 01, 04),
+              datetime(2019, 01, 07) ]
 
     df = pd.DataFrame({"symbol": ["AAPL", "AAPL", "AAPL", "AAPL"],
                        "date": dates,
@@ -23,5 +23,5 @@ def run():
     dbms.save_stock_data([df])
 
     # Get data
-    result = dbms.get_stock_data(["AAPL"], ("20190102", "20190107"))
+    result = dbms.get_stock_data(["AAPL"], (datetime(2019, 01, 02), datetime(2019, 01, 07)))
     print(type(result["AAPL"]))

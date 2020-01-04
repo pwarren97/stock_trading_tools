@@ -1,6 +1,6 @@
 import argparse
 import conf
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # import the appropriate source and dbms as indicated in the conf.py file
 if conf.DATA_SOURCE == "iex":
@@ -13,6 +13,8 @@ if conf.DB == "mongodb":
 elif conf.DB == "sql":
     from dbms.sql import SQL as dbms
 
+
+
 # Parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
@@ -21,30 +23,32 @@ parser.add_argument("--symbols", help="download symbols if they are not in the d
 parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
-# create start and end date datetime.date objects
-start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:7]), int(args.date[0][7:]))
-if len(args.date) == 2:
-    end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:7]), int(args.date[1][7:]))
 
-# If the options weren't entered right
-if args.symbols:
+
+# create start and end date datetime.date objects
+if args.date[0]:
+    start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
+
+    if len(args.date) == 2:
+        end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:6]), int(args.date[1][6:]))
+    elif len(args.date) == 1:
+        # makes end_date one day ahead of start_date
+        end_date = start_date + timedelta(days=1)
+
+# Handle all the options
+if args.symbols and (args.date or args.stock): # Stock data and symbols can't be pulled at the same time
+    print("You cannot pull stock data and symbols at the same time. Use -h or --help to see the options.")
+elif args.symbols: # handle downloading symbols
     symbols = source.get_symbols()
     dbms.save_symbols(symbols)
-elif args.stock == None or args.date == None:
+elif args.stock == None or args.date == None: # handle not having date and stock options together
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
     # Get the historical stock data from the internet
-    stock_data = None
-
-    # Single date passed through -d | --date optional argument
-    if len(args.date) == 1:
-        stock_data = source.get_stock_data(args.stock, start_date, close_only=args.close_only)
-        dbms.save_stock_data(stock_data)
-    elif len(args.date) == 2 and int(args.date[0]) < int(args.date[1]):
-        stock_data = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
-        dbms.save_stock_data(stock_data)
+    if start_date < end_date:
+        stock_df = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
+        print("Data saved to the database looks as follows:")
+        print(stock_df)
+        dbms.save_stock_data(stock_df)
     else:
-        print("There either isn't a date or a stock.")
-
-
-# Pass the data off to the database
+        print("There isn't a date, stock, or the dates aren't in order.")
