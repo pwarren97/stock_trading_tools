@@ -4,13 +4,19 @@ class Source():
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None, close_only=False):
         """
-        Return pandas object with symbol, date, open, high, low, close, volume
+        Returns historical stock data in a list of pandas objects.
+        Parameters must be in the form of strings.
+        Ticker symbol does not have to be case sensitive, but it does have to be a list
+
+        Returns columns: symbol date open high low close volume
+
+        For close_only: symbol date close volume
         """
         raise NotImplementedError
 
     @staticmethod
     def get_symbols():
         """
-        Return the symbols of the stock market in a pandas object
+        Returns all the symbols
         """
         raise NotImplementedError

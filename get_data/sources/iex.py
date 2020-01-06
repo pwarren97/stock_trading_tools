@@ -16,7 +16,7 @@ class IEXCloud(Source):
     """
     Class representing the connection to the IEXCloud platform.
     It inherits from the Source class in template.py,
-    <get_data.sources.template.Source>.
+    <get_data.sources.Model.Source>.
 
     functions:
     get_stocks_data(ticker_symbol, start, end=None, close_only=False)
@@ -24,15 +24,7 @@ class IEXCloud(Source):
     """
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None, close_only=False):
-        """
-        Returns historical stock data in a list of pandas objects.
-        Parameters must be in the form of strings.
-        Ticker symbol does not have to be case sensitive, but it does have to be a list
 
-        Returns columns: symbol date open high low close volume
-
-        For close_only: symbol date close volume
-        """
         # Force all the types to be appropriate
         if not isinstance(ticker_symbols, list):
             raise TypeError("ticker_symbol must be a list.")
@@ -60,15 +52,6 @@ class IEXCloud(Source):
         else:
             data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if len(ticker_symbol) > 1 and stock_data != None:
-
-        return stock_data
-=======
-        return data_frames
->>>>>>> be5b868a1e6fc7499a52c4ea4d909e63b57193b0
-=======
         for ticker_symbol in ticker_symbols:
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
@@ -76,13 +59,10 @@ class IEXCloud(Source):
             temp = restructure_df(temp, ticker_symbol, close_only)
             data = data.append(temp)
         return data
->>>>>>> dbfff607acbb71609f3f9e63bbbfa7381f955637
+
 
     @staticmethod
     def get_symbols():
-        """
-        Returns all the symbols
-        """
         symbols = iexfinance.refdata.get_symbols(output_format='pandas', token=conf.IEX_TOKEN)
 
         # Remove IEX specific info
