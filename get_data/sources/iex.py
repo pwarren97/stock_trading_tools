@@ -37,6 +37,8 @@ class IEXCloud(Source):
             if not isinstance(item, str):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
+        # iexfinance's get_historical_data() function is noninclusive of the final date,
+        # so the end date must be 1 greater than the original
         if end==None:
             end = datetime(start.year, start.month, start.day+1)
 
@@ -45,7 +47,8 @@ class IEXCloud(Source):
 
         # Check if data is in the database
         # Returns a dict of all the stock data
-        db_data = dbms.get_stock_data(ticker_symbols, (start, end))
+        db_data = dbms.get_stock_data(ticker_symbols, start, end)
+
 
         if close_only:
             data = pd.DataFrame(columns=["symbol", "date", "close", "volume"])

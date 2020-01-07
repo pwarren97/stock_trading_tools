@@ -24,8 +24,6 @@ parser.add_argument("--close_only", help="only get close prices", action="store_
 args = parser.parse_args()
 
 
-
-# create start and end date datetime.date objects
 if args.date[0]:
     start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
 

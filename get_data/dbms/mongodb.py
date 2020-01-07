@@ -31,25 +31,24 @@ class Mongo(Model):
             db.stocks.update_one(row, { "$set": row }, upsert=True)
 
     @staticmethod
-    def get_stock_data(ticker_symbols, dates):
-        if not isinstance(dates, tuple):
-            raise TypeError("Dates must be in the form of a tuple containing the start and end (exclusive of the end date)")
+    def get_stock_data(ticker_symbols, start, end=None):
+        if not isinstance(start, datetime):
+            raise TypeError("The start date must be in the form of a datetime object")
         elif not isinstance(ticker_symbols, list):
             raise TypeError("Ticker_symbols must be passed in the form a list")
         # elif all(isinstance(item, str) for item in ticker_symbols):
         #     raise TypeError("Items in the ticker_symbols list must be strings")
-        elif not isinstance(dates[0], datetime):
-            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
-        elif not isinstance(dates[1], datetime):
-            raise TypeError("Dates passed through must be datetime.datetime objects inside of a tuple")
-        # elif not dates[0] < dates[1]:
-        #     raise TypeError("Start date must be less than end date")
+        if end==None:
+            end = start
+        else:
+            if not isinstance(end, datetime):
+                raise TypeError("The end date must be in the form of a datetime object")
 
         results = {}
         for ticker_symbol in ticker_symbols:
             # cursor pulls data when you want to access it, such as in a for loop
             # data will go away after a full iteration in a for loop
-            cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : dates[0], "$lte" : dates[1]} })
+            cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : start, "$lte" : end} })
 
             results[ticker_symbol] = pd.DataFrame()
             for item in cursor:
