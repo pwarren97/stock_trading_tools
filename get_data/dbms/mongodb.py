@@ -48,11 +48,13 @@ class Mongo(Model):
         for ticker_symbol in ticker_symbols:
             # cursor pulls data when you want to access it, such as in a for loop
             # data will go away after a full iteration in a for loop
-            cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : start, "$lte" : end} })
+            cursor = db.stocks.find({ "symbol" : ticker_symbol.upper(), "date": {"$gte" : start, "$lte" : end} })
 
-            results[ticker_symbol] = pd.DataFrame()
+            appropriate_cols = ["symbol", "date", "open", "high", "low", "close", "volume"]
+            results[ticker_symbol] = pd.DataFrame(columns=appropriate_cols)
             for item in cursor:
-                results[ticker_symbol] = results[ticker_symbol].append(item, ignore_index=True)
+                results[ticker_symbol] = pd.concat([results[ticker_symbol], pd.DataFrame(item, columns=appropriate_cols)], ignore_index=True)
+            print(results[ticker_symbol])
         return results
 
     @staticmethod
