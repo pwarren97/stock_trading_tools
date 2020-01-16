@@ -53,8 +53,9 @@ class Mongo(Model):
             appropriate_cols = ["symbol", "date", "open", "high", "low", "close", "volume"]
             results[ticker_symbol] = pd.DataFrame(columns=appropriate_cols)
             for item in cursor:
-                results[ticker_symbol] = pd.concat([results[ticker_symbol], pd.DataFrame(item, columns=appropriate_cols)], ignore_index=True)
-            print(results[ticker_symbol])
+                db_data = pd.DataFrame(item, index=[0])
+                del db_data['_id']
+                results[ticker_symbol] = pd.concat([results[ticker_symbol], db_data], ignore_index=True, sort=True)
         return results
 
     @staticmethod
