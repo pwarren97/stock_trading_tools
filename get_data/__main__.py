@@ -23,7 +23,7 @@ parser.add_argument("--symbols", help="download symbols if they are not in the d
 parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
-helpers.validate_input(args)
+# helpers.validate_input(args)
 
 if args.date:
     start_date, end_date = helpers.get_start_and_end_dates(args.date)
