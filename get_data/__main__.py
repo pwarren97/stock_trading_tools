@@ -1,6 +1,7 @@
 import argparse
 import conf
 from datetime import datetime, timedelta
+import helpers
 
 # import the appropriate source and dbms as indicated in the conf.py file
 if conf.DATA_SOURCE == "iex":
@@ -14,7 +15,6 @@ elif conf.DB == "sql":
     from dbms.sql import SQL as dbms
 
 
-
 # Parse the command line input
 parser = argparse.ArgumentParser("get_data.sh")
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
@@ -23,15 +23,11 @@ parser.add_argument("--symbols", help="download symbols if they are not in the d
 parser.add_argument("--close_only", help="only get close prices", action="store_true")
 args = parser.parse_args()
 
+helpers.validate_input(args)
 
-if args.date[0]:
-    start_date = datetime(int(args.date[0][:4]), int(args.date[0][4:6]), int(args.date[0][6:]))
+if args.date:
+    start_date, end_date = helpers.get_start_and_end_dates(args.date)
 
-    if len(args.date) == 2:
-        end_date = datetime(int(args.date[1][:4]), int(args.date[1][4:6]), int(args.date[1][6:]))
-    elif len(args.date) == 1:
-        # makes end_date one day ahead of start_date
-        end_date = start_date + timedelta(days=1)
 
 # Handle all the options
 if args.symbols and (args.date or args.stock): # Stock data and symbols can't be pulled at the same time
