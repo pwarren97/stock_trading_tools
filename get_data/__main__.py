@@ -26,7 +26,7 @@ args = parser.parse_args()
 # helpers.validate_input(args)
 
 if args.date:
-    start_date, end_date = helpers.get_start_and_end_dates(args.date)
+    start_date, end_date = helpers.parse_dates(args.date)
 
 
 # Handle all the options

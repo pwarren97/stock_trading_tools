@@ -6,11 +6,11 @@ def validate_input(args):
     if args.date:
         # Check each date to make sure it has a valid format
         for item in args.date:
-            if not re.search("^*", item):
-                raise ValueError()
+            if not re.search("^[0-9]{8}$", item):
+                raise ValueError("You need a valid date in the format yyyymmdd")
     pass
 
-def get_start_and_end_dates(dates):
+def parse_dates(dates):
     year, month, day = parse_date(dates[0])
     start_date = datetime(year, month, day)
 

@@ -58,7 +58,7 @@ class IEXCloud(Source):
         for ticker_symbol in ticker_symbols:
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-            # Restructure the data to have the appropriate format
+            # Restructure the data to eliminate iexfinance specific information
             temp = restructure_df(temp, ticker_symbol, close_only)
             data = data.append(temp)
         return data
