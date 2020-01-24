@@ -26,7 +26,9 @@ args = parser.parse_args()
 # helpers.validate_input(args)
 
 if args.date:
-    start_date, end_date = helpers.parse_dates(args.date)
+    start_date, end_date = helpers.parse_start_and_end_dates(args.date)
+    if end_date == None:
+        end_date = start_date + timedelta(days=1)
 
 
 # Handle all the options
@@ -39,7 +41,7 @@ elif args.stock == None or args.date == None: # handle not having date and stock
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
     # Get the historical stock data from the internet
-    if start_date < end_date:
+    if start_date <= end_date:
         stock_df = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
         print("Data saved to the database looks as follows:")
         print(stock_df)

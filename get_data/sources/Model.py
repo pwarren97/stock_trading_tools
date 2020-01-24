@@ -7,6 +7,7 @@ class Source():
         Returns historical stock data in a list of pandas objects.
         Parameters must be in the form of strings.
         Ticker symbol does not have to be case sensitive, but it does have to be a list
+        ***The end date is intended to be inclusive
 
         Returns columns: symbol date open high low close volume
 

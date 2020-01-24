@@ -39,7 +39,7 @@ class IEXCloud(Source):
 
         # iexfinance's get_historical_data() function is noninclusive of the final date,
         # so the end date must be 1 greater than the original
-        if end==None:
+        if end==None or start==end:
             end = datetime(start.year, start.month, start.day+1)
 
         if not start < end:
@@ -56,6 +56,10 @@ class IEXCloud(Source):
             data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
         for ticker_symbol in ticker_symbols:
+            # Check to see what data is already in the database
+            date_range = pd.date_range(start, end)
+
+
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
             # Restructure the data to eliminate iexfinance specific information
