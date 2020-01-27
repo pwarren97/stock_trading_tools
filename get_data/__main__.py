@@ -46,6 +46,7 @@ else:
     else:
         print("There isn't a date, stock, or the dates aren't in order.")
 
+    # Save data pulled from the database
     if "stock_df" in locals():
         print("Data saved to the database looks as follows:")
         print(stock_df)
