@@ -37,16 +37,13 @@ class IEXCloud(Source):
             if not isinstance(item, str):
                 raise TypeError("An item in ticker_symbol is not a string.")
 
-        # iexfinance's get_historical_data() function is noninclusive of the final date,
-        # so the end date must be 1 greater than the original
-        if end==None or start==end:
-            end = datetime(start.year, start.month, start.day+1)
-
-        if not start < end:
+        if not end == None and not start < end:
             raise ValueError("The start needs to come before the end.")
 
         # Check if data is in the database
         # Returns a dict of all the stock data
+        if end == None:
+            end = start
         db_data = dbms.get_stock_data(ticker_symbols, start, end)
         print(db_data)
 

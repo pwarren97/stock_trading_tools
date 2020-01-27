@@ -27,8 +27,6 @@ args = parser.parse_args()
 
 if args.date:
     start_date, end_date = helpers.parse_start_and_end_dates(args.date)
-    if end_date == None:
-        end_date = start_date + timedelta(days=1)
 
 
 # Handle all the options
@@ -41,10 +39,14 @@ elif args.stock == None or args.date == None: # handle not having date and stock
     print("The stock (-s|--stock) and date (-d|--date) options are required. Use -h or --help to see the options.")
 else:
     # Get the historical stock data from the internet
-    if start_date <= end_date:
+    if end_date == None:
+        stock_df = source.get_stock_data(args.stock, start_date, close_only=args.close_only)
+    elif start_date < end_date:
         stock_df = source.get_stock_data(args.stock, start_date, end_date, close_only=args.close_only)
+    else:
+        print("There isn't a date, stock, or the dates aren't in order.")
+
+    if "stock_df" in locals():
         print("Data saved to the database looks as follows:")
         print(stock_df)
         dbms.save_stock_data(stock_df)
-    else:
-        print("There isn't a date, stock, or the dates aren't in order.")
