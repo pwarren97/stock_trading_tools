@@ -1,27 +1,6 @@
-# get_data program
+# get_data
 
+Get data is a program designed to pull data from the internet and put it in the database. It has models that can be implemented for you to use your own database. There are also models for data sources.
 
-[ root ]
-get_data/
-  Base directory of the whole program. Start with python get_data or the get_data.sh file.
-  conf.py
-    All configuration information should be defined here.
-  __main__.py
-    File is what gets run when you pass get_data/ to python.
-
-
-[ sources/ Directory ]
-get_data/sources/
-  The sources folders contains a python file for each source you can download information from.
-
-  iex.py
-    used for trading with iexcloud.
-  iex.md
-    explains dependencies required for iex.py
-
-[ sources/installer_scripts/ Directory ]
-get_data/sources/installer_scripts/
-  The scripts inside here are the installer scripts for all python modules necessary and the corresponding versioning needed.
-
-  iex_finance.sh
-    Installer script for iexcloud related python modules.
+## conf.py
+The file conf.py contains the configuration information and can be changed to use a different database or data source that already has an implemented model.
