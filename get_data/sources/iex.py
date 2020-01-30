@@ -44,17 +44,20 @@ class IEXCloud(Source):
         # Returns a dict of all the stock data
         if end == None:
             end = start
-        db_data = dbms.get_stock_data(ticker_symbols, start, end)
-        print(db_data)
 
         if close_only:
             data = pd.DataFrame(columns=["symbol", "date", "close", "volume"])
         else:
             data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
+
+        db_data = dbms.get_stock_data(ticker_symbols, start, end)
         for ticker_symbol in ticker_symbols:
             # Check to see what data is already in the database
-            date_range = pd.date_range(start, end)
+            include_dates = pd.date_range(start, end)
+
+            for df in db_data[ticker_symbol]:
+                if df["date"] > start or df["date"] < end:
 
 
             # Pull data
