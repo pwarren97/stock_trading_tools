@@ -53,12 +53,17 @@ class IEXCloud(Source):
 
         for ticker_symbol in ticker_symbols:
             # Check to see what data is already in the database
+            ticker_symbol = ticker_symbol.upper()
             db_data = dbms.get_stock_data([ticker_symbol], start, end)
+            df = db_data[ticker_symbol]
             include_dates = pd.date_range(start, end)
 
-            for df in db_data[ticker_symbol]:
-                if df["date"] > start or df["date"] < end:
-                    pass
+            print(df)
+            # print(type(df))
+            # print(df.loc[:, "date"].iloc[0])
+            # print(type(df.loc[:, "date"].iloc[0]))
+            # if df.loc[:, "date"] > start or df.loc[:, "date"] < end:
+            #     pass
 
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
