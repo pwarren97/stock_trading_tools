@@ -27,8 +27,10 @@ class Mongo(Model):
         for idx in range(len(data_frame)):
             data_frame.iloc[idx]
             row = data_frame.iloc[idx].to_dict()
+            
             # Update is used here instead of insert too avoid duplicates
-            db.stocks.update_one(row, { "$set": row }, upsert=True)
+            row_to_update = { "date" : row["date"], "symbol" : row["symbol"]}
+            db.stocks.update_one(row_to_update, { "$set": row }, upsert=True)
 
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None):
