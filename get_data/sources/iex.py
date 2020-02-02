@@ -3,7 +3,7 @@ import iexfinance.refdata
 import conf
 import pandas as pd
 from Model import Source
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # DB
 # database information gets used to check what data to use from the database
@@ -54,24 +54,37 @@ class IEXCloud(Source):
         for ticker_symbol in ticker_symbols:
             # Check to see what data is already in the database
             ticker_symbol = ticker_symbol.upper()
-            db_data = dbms.get_stock_data([ticker_symbol], start, end)
-            df = db_data[ticker_symbol][["date", "high"]]
+            db_data = dbms.get_stock_data([ticker_symbol], start, end)[ticker_symbol]
 
+            # get just the dates that matter
+            if close_only == True:
+                db_data = db_data["date"]
             if close_only == False:
-                df = df[]
+                db_data = db_data.loc[pd.isna(db_data["high"]) != True, "date"]
 
-            print(df)
+            # db_data = [ date.to_pydatetime() for date in db_data ]
+            print(db_data)
 
-            date_from_db = df.loc[:, "date"].iloc[0].to_pydatetime()
-            if date_from_db > start or date_from_db < end:
-                pass
+            # date_from_db = db_data.loc[:, "date"].iloc[0].to_pydatetime()
+            # if date_from_db > start or date_from_db < end:
+                # pass
+
+            # Create a range of dates not in the db to pull
+            date_range = []
+            date = start
+            while date != end:
+                for item in db_data:
+                    if date == item.to_pydatetime():
+
+
+                date = date + timedelta(days=1)
 
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
             # Restructure the data to eliminate iexfinance specific information
             temp = restructure_df(temp, ticker_symbol, close_only)
-            data = pd.concat([data, temp], ignore_index=True)
-        return data
+            stock_data = pd.concat([data, temp], ignore_index=True)
+        return stock_data
 
 
     @staticmethod
@@ -90,7 +103,7 @@ def restructure_df(data_frame, ticker_symbol, close_only):
     data_frame['date'] = data_frame.index
     data_frame.index.name = None
     data_frame.index = range(len(data_frame))
-    data_frame['symbol'] = ticker_symbol.upper()
+    data_frame['symbol'] = ticker_symbol
     if close_only:
         data_frame = data_frame[["symbol", "date", "close", "volume"]]
     else:
