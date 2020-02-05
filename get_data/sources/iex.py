@@ -46,9 +46,9 @@ class IEXCloud(Source):
             end = start
 
         if close_only:
-            data = pd.DataFrame(columns=["symbol", "date", "close", "volume"])
+            stock_data = pd.DataFrame(columns=["symbol", "date", "close", "volume"])
         else:
-            data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
+            stock_data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
 
         for ticker_symbol in ticker_symbols:
@@ -75,15 +75,15 @@ class IEXCloud(Source):
             while date != end:
                 for item in db_data:
                     if date == item.to_pydatetime():
-
+                        pass
 
                 date = date + timedelta(days=1)
 
             # Pull data
             temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-            # Restructure the data to eliminate iexfinance specific information
+            # Eliminate IEXCloud specific information for db
             temp = restructure_df(temp, ticker_symbol, close_only)
-            stock_data = pd.concat([data, temp], ignore_index=True)
+            stock_data = pd.concat([stock_data, temp], ignore_index=True)
         return stock_data
 
 
@@ -97,8 +97,7 @@ class IEXCloud(Source):
 
         return symbols
 
-# Makes data frame format correct for IEXCloud
-# This function is just for use in this file, not to be supplied elsewhere
+# Eliminate IEXCloud specific information for putting data in the database
 def restructure_df(data_frame, ticker_symbol, close_only):
     data_frame['date'] = data_frame.index
     data_frame.index.name = None

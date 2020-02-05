@@ -27,13 +27,16 @@ class Mongo(Model):
         for idx in range(len(data_frame)):
             data_frame.iloc[idx]
             row = data_frame.iloc[idx].to_dict()
-            
+
             # Update is used here instead of insert too avoid duplicates
             row_to_update = { "date" : row["date"], "symbol" : row["symbol"]}
             db.stocks.update_one(row_to_update, { "$set": row }, upsert=True)
 
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None):
+        """
+        Data pulled in data frame containing all stock information and listed in order by date
+        """
         if not isinstance(start, datetime):
             raise TypeError("The start date must be in the form of a datetime object")
         elif not isinstance(ticker_symbols, list):
@@ -51,7 +54,7 @@ class Mongo(Model):
             # cursor pulls data when you want to access it, such as in a for loop
             # data will go away after a full iteration in a for loop
             ticker_symbol = ticker_symbol.upper()
-            cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : start, "$lte" : end} })
+            cursor = db.stocks.find({ "symbol" : ticker_symbol, "date": {"$gte" : start, "$lte" : end} }).sort([("date", pymongo.ASCENDING)])
 
             appropriate_cols = ["symbol", "date", "open", "high", "low", "close", "volume"]
             results[ticker_symbol] = pd.DataFrame(columns=appropriate_cols)
