@@ -61,29 +61,33 @@ class IEXCloud(Source):
                 db_data = db_data["date"]
             if close_only == False:
                 db_data = db_data.loc[pd.isna(db_data["high"]) != True, "date"]
-
-            # db_data = [ date.to_pydatetime() for date in db_data ]
             print(db_data)
 
-            # date_from_db = db_data.loc[:, "date"].iloc[0].to_pydatetime()
-            # if date_from_db > start or date_from_db < end:
-                # pass
-
             # Create a range of dates not in the db to pull
-            date_range = []
-            date = start
-            while date != end:
+            date_range = (start, end)
+            db_data_pointer = db_data[0]
+            db_data_end = db_data[len(db_data)-1]
+            date_counter = start # date is the counter here
+            while date_counter != end:
+                while db_data_pointer != db_data_end:
+                # if the date is in the database
                 for item in db_data:
-                    if date == item.to_pydatetime():
-                        pass
+                    if date_counter == item.to_pydatetime():
+                        date_range[1] = date_counter - timedelta(days=1)
+                        # Pull data
+                        temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+                        # Eliminate IEXCloud specific information for db
+                        temp = restructure_df(temp, ticker_symbol, close_only)
+                        stock_data = pd.concat([stock_data, temp], ignore_index=True)
 
-                date = date + timedelta(days=1)
 
-            # Pull data
-            temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-            # Eliminate IEXCloud specific information for db
-            temp = restructure_df(temp, ticker_symbol, close_only)
-            stock_data = pd.concat([stock_data, temp], ignore_index=True)
+                # Pull data
+                temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+                # Eliminate IEXCloud specific information for db
+                temp = restructure_df(temp, ticker_symbol, close_only)
+                stock_data = pd.concat([stock_data, temp], ignore_index=True)
+
+                date_counter = date_counter + timedelta(days=1)
         return stock_data
 
 
