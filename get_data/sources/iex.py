@@ -56,42 +56,47 @@ class IEXCloud(Source):
             ticker_symbol = ticker_symbol.upper()
             db_data = dbms.get_stock_data([ticker_symbol], start, end)[ticker_symbol]
 
-            # get just the dates that matter
-            if close_only == True:
-                db_data = db_data["date"]
-            if close_only == False:
-                db_data = db_data.loc[pd.isna(db_data["high"]) != True, "date"]
-            print(db_data)
+            if len(db_data) != 0:
+                # keep only the dates that matter
+                if close_only == True:
+                    db_data = db_data["date"]
+                if close_only == False:
+                    db_data = db_data.loc[pd.isna(db_data["high"]) != True, "date"]
+                db_data = [ date.to_pydatetime() for date in db_data ]
 
-            # Create a range of dates not in the db represent the range that you end up pulling
-            date_range = (start, end)
-            db_data_loc = 0
-            db_data_end = len(db_data)-1
-            date_pointer = start # date_pointer is acting as a counter here
+                # Create a range of dates not in the db represent the range that you end up pulling
+                date_range = [start, end]
+                db_data_loc = 0
+                db_data_end = len(db_data)-1
+                date_pointer = start # date_pointer is acting as a counter here
 
-            while date_pointer != end:
-                if date_pointer == db_data[db_data_loc].to_pydatetime():
-                    date_range[1] = date_pointer - timedelta(days=1)
-                    # Pull data, then add it to the stock_data dataframe
-                    temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                    temp = restructure_df(temp, ticker_symbol, close_only)
-                    stock_data = pd.concat([stock_data, temp], ignore_index=True)
-                    # fastforward the db_data_loc so that now it points to first date
-                    while db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):
+                while date_pointer < end:
+                    if date_pointer == db_data[db_data_loc]:
+                        date_range[1] = date_pointer - timedelta(days=1)
+                        # Pull data, then add it to the stock_data dataframe
+                        temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+                        temp = restructure_df(temp, ticker_symbol, close_only)
+                        stock_data = pd.concat([stock_data, temp], ignore_index=True)
+
+                        # Fastforward the db_data_loc to be past a range of consecutive dates in db_data if that is what it is looking at
+                        while db_data_loc < db_data_end and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
+                            db_data_loc = db_data_loc + 1
+                        date_pointer = db_data[db_data_loc] + timedelta(days=1)
+                        date_range[0] = date_pointer
                         db_data_loc = db_data_loc + 1
-                    date_range[0] = db_data[db_data_loc-1] + timedelta(days=1)
                     date_pointer = date_pointer + timedelta(days=1)
-                    
-
-
-
+                    if date_pointer == end:
+                        date_range[1] = date_pointer
+                        # Pull data, then add it to the stock_data dataframe
+                        temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+                        temp = restructure_df(temp, ticker_symbol, close_only)
+                        stock_data = pd.concat([stock_data, temp], ignore_index=True)
+            else:
                 # Pull data
-                temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                # Eliminate IEXCloud specific information for db
+                temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
                 temp = restructure_df(temp, ticker_symbol, close_only)
-                stock_data = pd.concat([stock_data, temp], ignore_index=True)
-
-                date_pointer = date_pointer + timedelta(days=1)
+                stock_data = temp
+            print(stock_data)
         return stock_data
 
 
