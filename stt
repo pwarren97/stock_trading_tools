@@ -1,5 +1,0 @@
-#!/bin/bash
-if [[ $1 == "get_data" ]]
-then
-  python $@
-fi
