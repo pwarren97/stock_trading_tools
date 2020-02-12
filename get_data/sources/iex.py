@@ -50,7 +50,6 @@ class IEXCloud(Source):
         else:
             stock_data = pd.DataFrame(columns=["symbol", "date", "open", "high", "low", "close", "volume"])
 
-        print(ticker_symbols)
         for ticker_symbol in ticker_symbols:
             # Check to see what data is already in the database
             ticker_symbol = ticker_symbol.upper()
@@ -96,7 +95,6 @@ class IEXCloud(Source):
                 temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
                 temp = restructure_df(temp, ticker_symbol, close_only)
                 stock_data = pd.concat([stock_data, temp], ignore_index=True)
-        print(stock_data)
         return stock_data
 
 

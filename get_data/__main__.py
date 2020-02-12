@@ -48,6 +48,9 @@ else:
 
     # Save data pulled from the database
     if "stock_df" in locals():
-        print("Data saved to the database looks as follows:")
-        print(stock_df)
+        if not stock_df.empty:
+            print("New data saved to the database looks as follows:")
+            print(stock_df)
+        else:
+            print("No new data to add to the database.")
         dbms.save_stock_data(stock_df)
