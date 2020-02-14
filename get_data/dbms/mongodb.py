@@ -11,9 +11,6 @@ db = client["stocks"]
 class Mongo(Model):
     """
     Class for communicating with a MongoDB.
-
-    Contains functions:
-    save_stock_data()
     """
 
     @staticmethod
