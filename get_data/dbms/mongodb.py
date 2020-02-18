@@ -62,10 +62,7 @@ class Mongo(Model):
         return results
 
     @staticmethod
-    def save_symbols(data_frame):
-        print(data_frame.columns)
-        #TODO: Should check to make sure the pandas object is in the proper format
-
+    def save_symbols(data_frame):        
         # save the symbols now row by row
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
