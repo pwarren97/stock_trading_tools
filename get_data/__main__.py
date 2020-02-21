@@ -10,9 +10,9 @@ if conf.DATA_SOURCE == "iex":
 #     from sources.iex import ThatObject as source
 
 if conf.DB == "mongodb":
-    from dbms.mongodb import Mongo as dbms
+    from stt_global_items.dbms.mongodb import Mongo as dbms
 elif conf.DB == "sql":
-    from dbms.sql import SQL as dbms
+    from stt_global_items.dbms.sql import SQL as dbms
 
 
 # Parse the command line input
