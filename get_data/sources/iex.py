@@ -1,6 +1,6 @@
 from iexfinance.stocks import get_historical_data
 import iexfinance.refdata
-import conf
+import stt_global_items.conf as conf
 import pandas as pd
 from Model import Source
 from datetime import datetime, timedelta
@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 # DB
 # database information gets used to check what data to use from the database
 if conf.DB == "mongodb":
-    from dbms.mongodb import Mongo as dbms
+    from stt_global_items.dbms.mongodb import Mongo as dbms
 elif conf.DB == "sql":
-    from dbms.sql import SQL as dbms
+    from stt_global_items.dbms.sql import SQL as dbms
 
 class IEXCloud(Source):
     """

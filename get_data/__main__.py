@@ -1,5 +1,5 @@
 import argparse
-import conf
+import stt_global_items.conf as conf
 from datetime import datetime, timedelta
 import helpers
 
