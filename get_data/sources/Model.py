@@ -1,6 +1,6 @@
 # This file serves as the template for future things
 
-class Source():
+class Source(): # not inheriting abc because it doesn't give a NotImplementedError
     @staticmethod
     def get_stock_data(ticker_symbols, start, end=None, close_only=False):
         """

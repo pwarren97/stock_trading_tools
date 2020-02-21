@@ -2,4 +2,7 @@
 if [ $1 = "get_data" ]
 then
   python $@
+elif [ $1 = "calc_indicators" ]
+then
+  python $@
 fi

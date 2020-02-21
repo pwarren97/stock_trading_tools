@@ -16,7 +16,7 @@ elif conf.DB == "sql":
 
 
 # Parse the command line input
-parser = argparse.ArgumentParser("get_data.sh")
+parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--stock", nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
 parser.add_argument("-d", "--date", nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
 parser.add_argument("--symbols", help="download symbols if they are not in the database", action="store_true")
