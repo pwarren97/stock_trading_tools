@@ -1,4 +1,4 @@
 #!/bin/sh
 cp -r ./get_data/ /usr/local/bin/
-cp -r ./stt /usr/local/bin/
-chmod +x /usr/local/bin/stt
+cp -r ./get-data /usr/local/bin/
+chmod +x /usr/local/bin/get-data
