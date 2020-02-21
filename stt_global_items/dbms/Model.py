@@ -1,4 +1,4 @@
-# This file will represent all models
+# This file will represent all db models in get_data
 
 class DBMS_Model:
     @staticmethod
