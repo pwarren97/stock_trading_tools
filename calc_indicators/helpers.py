@@ -1,7 +1,7 @@
 # This file has helpers for __main__.py
 from datetime import datetime
 
-indicator_names = \
+all_indicators = \
 [
 "MACD:12-26-9",
 "MACD-Histogram:12-26-9"
