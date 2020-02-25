@@ -70,7 +70,7 @@ class IEXCloud(Source):
                 date_pointer = start # date_pointer is acting as a counter here
 
                 while date_pointer < end:
-                    if date_pointer == db_data[db_data_loc]:
+                    if db_data_loc is not db_data_end-1 and date_pointer == db_data[db_data_loc]:
                         date_range[1] = date_pointer - timedelta(days=1)
                         # Pull data, then add it to the stock_data dataframe
                         temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
@@ -84,6 +84,7 @@ class IEXCloud(Source):
                         date_pointer = db_data[db_data_loc] + timedelta(days=1)
                         date_range[0] = date_pointer
                         db_data_loc = db_data_loc + 1
+
                     date_pointer = date_pointer + timedelta(days=1)
                 if date_pointer == end:
                     date_range[1] = date_pointer
