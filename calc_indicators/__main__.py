@@ -21,8 +21,8 @@ df = dbms.get_stock_data(args.stock, start_date, end_date)
 
 
 if end_date == None:
-    indicator_df = helpers.calc_indicators(args.indicators, args.stock, start_date)
+    indicator_df = helpers.calc_indicators(args.indicators, start_date)
 elif start_date < end_date:
-    indicator_df = helpers.calc_indicators(args.indicators, args.stock, start_date, end_date)
+    indicator_df = helpers.calc_indicators(args.indicators, start_date, end_date)
 else:
     print("Something went wrong.")

@@ -29,5 +29,10 @@ def parse_date(date):
 def calc_indicators(indicators, start_date, end_date=None):
     if not isinstance(indicators, list):
         raise TypeError("The indicators must be passed in the from of a list.")
-    if not isinstance(indicators[0], str):
+    elif not isinstance(indicators[0], str):
         raise TypeError("The indicators must be in the form of a string.")
+    elif not isinstance(start_date, datetime):
+        raise TypeError("The start date must be in the form of a python datetime.datetime object.")
+    elif end_date is not None:
+        if not isinstance(end_date, datetime):
+            raise TypeError("The end date must be in the form of a python datetime.datetime object.")

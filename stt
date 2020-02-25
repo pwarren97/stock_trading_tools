@@ -5,4 +5,6 @@ then
 elif [ $1 = "calc_indicators" ]
 then
   python $@
+else
+  echo "Type stt get_data --help, stt calc_indicators --help to get help for the separate tools"
 fi

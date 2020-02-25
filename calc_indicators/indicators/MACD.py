@@ -1,4 +1,11 @@
 from Model import Indicator
+import stt_global_items.conf as conf
+
+if conf.DB == "mongodb":
+    from stt_global_items.dbms import Mongo as dbms
+elif conf.DB == "sql":
+    from stt_global_items.dbms import SQL as dbms
+
 
 class MACD(Indicator):
     # EMA's are to be used for the MACD and Signal Line
@@ -7,5 +14,5 @@ class MACD(Indicator):
         self.EMA2 = EMA2
         self.EMA3 = EMA3
 
-    def calc_indicator(ticker_symbols, start, end=None):
-        pass
+    # Returns the MACD line, the Signal Line, and the Histogram
+    def calc_indicator(data_frame):
