@@ -16,3 +16,4 @@ class MACD(Indicator):
 
     # Returns the MACD line, the Signal Line, and the Histogram
     def calc_indicator(data_frame):
+        pass

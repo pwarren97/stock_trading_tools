@@ -16,7 +16,7 @@ parser.add_argument("-i", "--indicators", nargs="+", type=str, help="")
 parser.add_argument("--all", help="", action="store_true")
 args = parser.parse_args()
 
-if args.indicators or 
+if args.indicators:
     if args.date:
         start_date, end_date = helpers.parse_start_and_end_dates(args.date)
 

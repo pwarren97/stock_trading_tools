@@ -2,7 +2,7 @@ from Model import DBMS_Model
 import pandas as pd
 import pymongo
 from datetime import datetime
-import conf
+import stt_global_items.conf as conf
 
 # global db information used by all the functions
 client = pymongo.MongoClient(conf.MONGO_SOCKET)
@@ -59,7 +59,7 @@ class Mongo(DBMS_Model):
         return results
 
     @staticmethod
-    def save_symbols(data_frame):        
+    def save_symbols(data_frame):
         # save the symbols now row by row
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
