@@ -70,7 +70,7 @@ class IEXCloud(Source):
                 date_pointer = start # date_pointer is acting as a counter here
 
                 while date_pointer < end:
-                    if db_data_loc is not db_data_end-1 and date_pointer == db_data[db_data_loc]:
+                    if date_pointer == db_data[db_data_loc]:
                         date_range[1] = date_pointer - timedelta(days=1)
                         # Pull data, then add it to the stock_data dataframe
                         temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
@@ -78,12 +78,13 @@ class IEXCloud(Source):
                         stock_data = pd.concat([stock_data, temp], ignore_index=True)
 
                         # Fastforward the db_data_loc to be past a range of consecutive dates in db_data if that is what it is looking at
-                        while db_data_loc < db_data_end-1 and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
+                        while db_data_loc < db_data_end and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
                             db_data_loc = db_data_loc + 1
 
                         date_pointer = db_data[db_data_loc] + timedelta(days=1)
                         date_range[0] = date_pointer
-                        db_data_loc = db_data_loc + 1
+                        if db_data_loc < db_data_end:
+                            db_data_loc = db_data_loc + 1
 
                     date_pointer = date_pointer + timedelta(days=1)
                 if date_pointer == end:
