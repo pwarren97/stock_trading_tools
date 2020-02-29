@@ -78,7 +78,7 @@ class IEXCloud(Source):
                         stock_data = pd.concat([stock_data, temp], ignore_index=True)
 
                         # Fastforward the db_data_loc to be past a range of consecutive dates in db_data if that is what it is looking at
-                        while db_data_loc < db_data_end-1 and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
+                        while db_data_loc < db_data_end and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
                             db_data_loc = db_data_loc + 1
 
                         date_pointer = db_data[db_data_loc] + timedelta(days=1)
