@@ -5,8 +5,9 @@ all_indicators = \
 [
 "EMA:13",
 "EMA:200",
-"MACD:12-26-9",
-"MACD-Histogram:12-26-9",
+"MACD:12-26-9", #MACD does histogram as well
+"RoC:7",
+"SRoC:13-7"
 ]
 
 def parse_start_and_end_dates(dates):
