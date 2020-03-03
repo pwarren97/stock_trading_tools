@@ -3,8 +3,10 @@ from datetime import datetime
 
 all_indicators = \
 [
+"EMA:13",
+"EMA:200",
 "MACD:12-26-9",
-"MACD-Histogram:12-26-9"
+"MACD-Histogram:12-26-9",
 ]
 
 def parse_start_and_end_dates(dates):
