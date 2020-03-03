@@ -16,13 +16,17 @@ parser.add_argument("-i", "--indicators", nargs="+", type=str, help="")
 parser.add_argument("--all", help="", action="store_true")
 args = parser.parse_args()
 
-if args.indicators or 
+if args.indicators or args.all:
     if args.date:
         start_date, end_date = helpers.parse_start_and_end_dates(args.date)
 
     if args.all:
         indicators = helpers.all_indicators
     else:
+        for item in args.indicators:
+            if item not in helpers.all_indicators:
+                print("You have listed an indicator that is not in implemented. The list of implemented indicators is as follows:")
+                print(helpers.all_indicators)
         indicators = args.indicators
 
     df = dbms.get_stock_data(args.stock, start_date, end_date)
@@ -33,4 +37,11 @@ if args.indicators or
     elif start_date < end_date:
         indicator_df = helpers.calc_indicators(indicators, start_date, end_date)
     else:
-        print("Something went wrong.")
+        print("Something went wrong. #1")
+
+    if indicator_df:
+        dbms.save_indicators(indicator_df)
+    else:
+        print("Something went wrong. #2")
+else:
+    print("You need to specify the indicators.")
