@@ -6,7 +6,7 @@ if conf.DB == "mongodb":
 elif conf.DB == "sql":
     from stt_global_items.dbms import SQL as dbms
 
-
+# Outputs MACD line, Signal Line, and the MACD-Histogram
 class MACD(Indicator):
     # EMA's are to be used for the MACD and Signal Line
     def __init__(self, ema1, ema2, ema3):

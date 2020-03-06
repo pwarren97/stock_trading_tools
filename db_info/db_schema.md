@@ -2,7 +2,7 @@
 # Table/Collections:
 ## Symbols
 SQL:
-id(primary key),    currency,    date,    exchange,   name,    region,    symbol,    type
+id(primary key), currency, date, exchange, name, region, symbol, type
 
 Mongo:
 currency, date, exchange, name, region, symbol, type
@@ -16,7 +16,7 @@ symbol, date, open, high, low, close, volume
 
 ## Indicators
 SQL:
-idforeign key),    symbol,   date,    13-EMA,   MACD,    Signal_line   MACD_histogram, Mtm7, S-RoC 13/21
+id(foreign key),    symbol,   date,    13-EMA,   MACD,    Signal_line   MACD_histogram, Mtm7, S-RoC 13/21
 
 Mongo:
 id,   symbol,    date,    indicators : [13-EMA, [ MACD, Signal_line ], MACD_histogram, Mtm7,  S-RoC 13/21]
