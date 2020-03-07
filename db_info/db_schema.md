@@ -19,4 +19,4 @@ SQL:
 id(foreign key),    symbol,   date,    13-EMA,   MACD,    Signal_line   MACD_histogram, Mtm7, S-RoC 13/21
 
 Mongo:
-id,   symbol,    date,    indicators : [13-EMA, [ MACD, Signal_line ], MACD_histogram, Mtm7,  S-RoC 13/21]
+symbol,    date,    indicators : [ EMA : [13, 200], MACD : [12-26-9: [ Signal-line, MACD_line, MACD_histogram ], SRoC: [13-7], RoC: [7]  ]
