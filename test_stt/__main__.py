@@ -1,1 +1,3 @@
-import unittest
+from test_dbms import TestDBMS
+
+TestDBMS.run()
