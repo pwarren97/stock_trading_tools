@@ -1,4 +1,4 @@
-from Model import DBMS_Model
+from .model import DBMS_Model
 import pandas as pd
 import pymongo
 from datetime import datetime

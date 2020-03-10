@@ -1,10 +1,10 @@
 #!/bin/sh
 if [ $1 = "get_data" ]
 then
-  python $@
+  python3 $@
 elif [ $1 = "calc_indicators" ]
 then
-  python $@
+  python3 $@
 else
   echo "Type stt get_data --help, stt calc_indicators --help to get help for the separate tools"
 fi

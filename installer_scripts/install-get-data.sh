@@ -1,5 +1,6 @@
 #!/bin/bash
 
 # You must install pip for this script
-pip install iexfinance
-pip install pandas==0.24.2
+pip3 install iexfinance
+pip3 install pandas
+pip3 install pymongo

@@ -1,4 +1,4 @@
-from Model import DBMS_Model
+from .model import DBMS_Model
 
 class SQL(DBMS_Model):
     """
