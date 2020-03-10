@@ -2,7 +2,7 @@ from iexfinance.stocks import get_historical_data
 import iexfinance.refdata
 import stt_global_items.conf as conf
 import pandas as pd
-from Model import Source
+from .model import Source
 from datetime import datetime, timedelta
 
 # DB

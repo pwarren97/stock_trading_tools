@@ -1,4 +1,4 @@
-from Model import Indicator
+from .model import Indicator
 import stt_global_items.conf as conf
 
 if conf.DB == "mongodb":
