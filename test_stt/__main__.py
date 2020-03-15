@@ -2,7 +2,6 @@ import unittest
 from stt_global_items import conf
 import pandas as pd
 from datetime import datetime
-import numpy as np
 
 if conf.DB == "mongodb":
     from stt_global_items.dbms.mongodb import Mongo as dbms
@@ -23,6 +22,7 @@ class TestDBMS(unittest.TestCase):
             "open": [154.89, 143.98, 144.53]
         }
         self.test_df1 = pd.DataFrame(self.data1)
+        print(self.test_df1)
 
     def tearDown(self):
         """Gets called after every test case"""
@@ -30,7 +30,7 @@ class TestDBMS(unittest.TestCase):
 
     def test_save_stock_data(self):
         """Tests dbms.save_stock_data()"""
-        dbms.save_stock_data(temp)
+        dbms.save_stock_data(self.test_df1)
 
     def test_get_stock_data(self):
         """Tests dbms.get_stock_data()"""
@@ -38,14 +38,8 @@ class TestDBMS(unittest.TestCase):
         df1 = dbms.get_stock_data(["AAPL"], datetime(2019, 1, 2), datetime(2019, 1, 4))
         df2 = dbms.get_stock_data(["AAPL"], datetime(2019, 1, 2))
 
-        # Pandas's equivalent equality comparison function didn't work correctly, hence numpy
-        temp1 = self.test_df1.to_numpy()
-        df1 = df1["AAPL"].to_numpy()
-        df2 = df2["AAPL"].to_numpy()
-        print(temp1)
-        print(df1)
-        self.assertTrue(np.array_equal(temp1, df1))
-        self.assertTrue(np.array_equal(temp1, df2))
+        self.assertTrue(self.test_df1.equals(df1))
+        self.assertTrue(self.test_df1.equals(df2))
 
     def test_save_symbols(self):
         """Tests dbms.save_stock_data()"""
