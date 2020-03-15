@@ -1,3 +1,3 @@
 #!/bin/sh
 ./install.sh
-python test_stt/
+python3 test_stt/
