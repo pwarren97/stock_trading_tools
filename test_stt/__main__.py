@@ -25,16 +25,6 @@ class TestDBMS(unittest.TestCase):
             "close": [157.92, 142.19, 148.26],
             "open": [154.89, 143.98, 144.53]
         }
-        # self.sing_stock_mult_date = pd.DataFrame(nd.array(
-        #     [[datetime(2019, 1, 2), datetime(2019, 1, 3), datetime(2019, 1, 4)],
-        #     ["AAPL", "AAPL", "AAPL"],
-        #     [37039737.0, 91312195.0, 58607070.0],
-        #     [158.85, 145.72, 148.55],
-        #     [154.23, 142, 143.8],
-        #     [157.92, 142.19, 148.26],
-        #     [154.89, 143.98, 144.53]],
-        #     dtype=[]
-        # ), columns=["date", "symbol", "volume", "high", "low", "close", "open"])
         # Single stock Single date example
         self.sing_stock_sing_date = {
             "date": [datetime(2019, 1, 2)],
@@ -57,7 +47,7 @@ class TestDBMS(unittest.TestCase):
         }
         # Multiple stock Single date example
         self.mult_stock_sing_date = {
-            "date": [datetime(2019, 1, 2), datetime(2019, 1, 1)],
+            "date": [datetime(2019, 1, 2), datetime(2019, 1, 2)],
             "symbol": ["AAPL", "MSFT"],
             "volume": [37039737.0, 35329345.0],
             "high": [158.85, 101.75],
@@ -84,18 +74,25 @@ class TestDBMS(unittest.TestCase):
         dbms.save_stock_data(self.test_df1)
         df1 = dbms.get_stock_data(["AAPL"], datetime(2019, 1, 2), datetime(2019, 1, 4))
         df1 = df1["AAPL"]
+
         df2 = dbms.get_stock_data(["AAPL"], datetime(2019, 1, 2))
         df2 = df2["AAPL"]
+
         df3 = dbms.get_stock_data(["AAPL", "MSFT"], datetime(2019, 1, 2), datetime(2019, 1, 4))
         df3 = pd.concat([df3["AAPL"], df3["MSFT"]], ignore_index=True)
+
+        df4 = dbms.get_stock_data(["AAPL", "MSFT"], datetime(2019, 1, 2))
+        df4 = pd.concat([df4["AAPL"], df4["MSFT"]], ignore_index=True)
         # pd.concat made the dtype of the volume column np.int64 and it should be np.float64 to match with the other dfs,
         # that is why the following line has to be there
         df3["volume"] = np.array(df3["volume"], dtype=np.float64)
+        df4["volume"] = np.array(df4["volume"], dtype=np.float64)
 
         # assert tests
         self.assertTrue(self.test_df1.equals(df1))
         self.assertFalse(self.test_df1.equals(df2))
         self.assertTrue(self.test_df3.equals(df3))
+        self.assertTrue(self.test_df4.equals(df4))
 
     def test_save_symbols(self):
         """Tests dbms.save_stock_data()"""
