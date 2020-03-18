@@ -68,6 +68,9 @@ class TestDBMS(unittest.TestCase):
     def test_save_stock_data(self):
         """Tests dbms.save_stock_data()"""
         dbms.save_stock_data(self.test_df1)
+        dbms.save_stock_data(self.test_df2)
+        dbms.save_stock_data(self.test_df3)
+        dbms.save_stock_data(self.test_df4)
 
     def test_get_stock_data(self):
         """Tests dbms.get_stock_data()"""
