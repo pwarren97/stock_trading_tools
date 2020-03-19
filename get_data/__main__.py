@@ -28,7 +28,6 @@ args = parser.parse_args()
 if args.date:
     start_date, end_date = helpers.parse_start_and_end_dates(args.date)
 
-
 # Handle all the options
 if args.symbols and (args.date or args.stock): # Stock data and symbols can't be pulled at the same time
     print("You cannot pull stock data and symbols at the same time. Use -h or --help to see the options.")
