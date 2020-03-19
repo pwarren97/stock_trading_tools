@@ -73,9 +73,7 @@ class IEXCloud(Source):
                     if date_pointer == db_data[db_data_loc]:
                         date_range[1] = date_pointer - timedelta(days=1)
                         # Pull data, then add it to the stock_data dataframe
-                        temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                        temp = restructure_df(temp, ticker_symbol, close_only)
-                        stock_data = pd.concat([stock_data, temp], ignore_index=True)
+                        stock_data = pull_then_add_data(stock_data, ticker_symbol, date_range[0], date_range[1], close_only)
 
                         # Fastforward the db_data_loc to be past a range of consecutive dates in db_data if that is what it is looking at
                         while db_data_loc < db_data_end and db_data[db_data_loc+1] == db_data[db_data_loc] + timedelta(days=1):   # Stops at the last consecutive date
@@ -90,14 +88,10 @@ class IEXCloud(Source):
                 if date_pointer == end:
                     date_range[1] = date_pointer
                     # Pull data, then add it to the stock_data dataframe
-                    temp = get_historical_data(ticker_symbol, date_range[0], date_range[1], output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                    temp = restructure_df(temp, ticker_symbol, close_only)
-                    stock_data = pd.concat([stock_data, temp], ignore_index=True)
+                    stock_data = pull_then_add_data(stock_data, ticker_symbol, date_range[0], date_range[1], close_only)
             else:
                 # Pull data
-                temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
-                temp = restructure_df(temp, ticker_symbol, close_only)
-                stock_data = pd.concat([stock_data, temp], ignore_index=True)
+                stock_data = pull_then_add_data(stock_data, ticker_symbol, start, end, close_only)
         return stock_data
 
 
@@ -122,3 +116,8 @@ def restructure_df(data_frame, ticker_symbol, close_only):
     else:
         data_frame = data_frame[["symbol", "date", "open", "high", "low", "close", "volume"]]
     return data_frame
+
+def pull_then_add_data(stock_df, ticker_symbol, start, end, close_only):
+    temp = get_historical_data(ticker_symbol, start, end, output_format='pandas', token=conf.IEX_TOKEN, close_only=close_only)
+    temp = restructure_df(temp, ticker_symbol, close_only)
+    return pd.concat([stock_df, temp], ignore_index=True)
