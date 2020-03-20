@@ -1,6 +1,7 @@
 # This file has helpers for __main__.py
 import pandas as pd
 from datetime import datetime
+from indicators.model import Indicator
 
 
 all_indicators = \

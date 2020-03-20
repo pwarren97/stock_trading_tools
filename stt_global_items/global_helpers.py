@@ -25,3 +25,7 @@ date_option1, date_option2 = "-d", "--date"
 
 # Components of the cli output
 help_msg = "Use -h or --help to see the options."
+
+# Help messages for argparse
+stock_param_help_msg = "what stock(s) to download. input should be ticker symbols"
+date_param_help_msg = "takes start date or start and end dates for stock data in format yyyymmdd"
