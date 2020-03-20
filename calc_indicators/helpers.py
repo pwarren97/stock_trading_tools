@@ -1,5 +1,7 @@
 # This file has helpers for __main__.py
+import pandas as pd
 from datetime import datetime
+
 
 all_indicators = \
 [
@@ -39,3 +41,4 @@ def calc_indicators(indicators, start_date, end_date=None):
     elif end_date is not None:
         if not isinstance(end_date, datetime):
             raise TypeError("The end date must be in the form of a python datetime.datetime object.")
+    return True

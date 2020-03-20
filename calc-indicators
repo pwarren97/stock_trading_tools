@@ -1,2 +1,2 @@
 #!/bin/sh
-python3 get_data/ $@
+python3 calc_indicators/ $@
