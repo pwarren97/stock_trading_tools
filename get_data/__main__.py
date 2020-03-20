@@ -1,5 +1,6 @@
 import argparse
 import stt_global_items.conf as conf
+from stt_global_items import global_helpers
 from datetime import datetime, timedelta
 import helpers
 
@@ -16,27 +17,26 @@ elif conf.DB == "sql":
 
 
 # Specify the name of the options
-stock_option1, stock_option2 = "-s", "--stock"
-date_option1, date_option2 = "-d", "--date"
+symbols_option = "--symbols"
+close_only_option = "--close_only"
 
 # Parse the command line input
 parser = argparse.ArgumentParser()
-parser.add_argument(stock_option1, stock_option2, nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
-parser.add_argument(date_option1, date_option2, nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
-parser.add_argument("--symbols", help="download symbols if they are not in the database", action="store_true")
-parser.add_argument("--close_only", help="only get close prices", action="store_true")
+parser.add_argument(global_helpers.stock_option1, global_helpers.stock_option2, nargs='+', type=str, help="what stock(s) to download. input should be ticker symbols")
+parser.add_argument(global_helpers.date_option1, global_helpers.date_option2, nargs='+', type=str, help="takes start date or start and end dates for stock data in format yyyymmdd")
+parser.add_argument(symbols_option, help="download symbols if they are not in the database", action="store_true")
+parser.add_argument(close_only_option, help="only get close prices", action="store_true")
 args = parser.parse_args()
 
 # helpers.validate_input(args)
 
 if args.date:
-    start_date, end_date = helpers.parse_start_and_end_dates(args.date)
+    start_date, end_date = global_helpers.parse_start_and_end_dates(args.date)
 
 msg_part1 = "If you are aiming to pull stock data, you need to include"
-help_msg = "Use -h or --help to see the options."
+
 
 # Handle all the options
-
 if args.symbols and not (args.stock or args.date): # handle downloading symbols
     symbols = source.get_symbols()
     dbms.save_symbols(symbols)
@@ -57,12 +57,12 @@ elif args.stock and args.date and not args.symbols:
         dbms.save_stock_data(stock_df)
 else:
     if args.symbols and (args.stock or args.date): # Stock data and symbols can't be pulled at the same time
-        print("You cannot pull stock data and symbols at the same time. " + help_msg)
+        print("You cannot pull stock data and symbols at the same time. " + global_helpers.help_msg)
     elif not args.date and not args.stock:
-        print(msg_part1 + " the stock (" + stock_option1 + "|" + stock_option2 + ") and date (" + date_option1 + "|" + date_option2 + ") optional parameters. " + help_msg)
+        print(msg_part1 + " the stock (" + global_helpers.stock_option1 + "|" + global_helpers.stock_option2 + ") and date (" + global_helpers.date_option1 + "|" + global_helpers.date_option2 + ") optional parameters. " + global_helpers.help_msg)
     elif args.date and not args.stock:
-        print(msg_part1 + " the stock (" + stock_option1 + "|" + stock_option2 + ") optional parameter. " + help_msg)
+        print(msg_part1 + " the stock (" + global_helpers.stock_option1 + "|" + global_helpers.stock_option2 + ") optional parameter. " + global_helpers.help_msg)
     elif not args.date and args.stock:
-        print(msg_part1 + " the date (" + date_option1 + "|" + date_option2 + ") optional parameter. " + help_msg)
+        print(msg_part1 + " the date (" + global_helpers.date_option1 + "|" + global_helpers.date_option2 + ") optional parameter. " + global_helpers.help_msg)
     elif start_data >= end_date:
         print("The start date must come before the end date.")
