@@ -14,12 +14,16 @@ all_indicators = \
 ]
 
 class IndicatorGenerator():
-    def __init__(indicators):
-        if not isinstance(indicators, list):
-            raise TypeError("The indicators must be passed in the from of a list.")
-        elif not isinstance(indicators[0], str):
-            raise TypeError("The indicators must be in the form of a string.")
-        self.indicators = indicators
+    def __init__(indicators=None):
+        if indicators==None:
+            if not isinstance(indicators, list):
+                raise TypeError("The indicators must be passed in the from of a list.")
+            elif not isinstance(indicators[0], str):
+                raise TypeError("The indicators must be in the form of a string.")
+            self.indicators = indicators
+        else:
+            # IN THE FUTURE THIS NEEDS TO BE THE DEFAULT SET
+            self.indicators = None
 
     def calc_indicators(start_date, end_date=None):
         if not isinstance(start_date, datetime):

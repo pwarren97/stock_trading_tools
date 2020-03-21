@@ -15,7 +15,6 @@ list_indicators_option = "--list_indicators"
 
 # indicator sets
 choose_set_option = "--set"
-set_default_indicator_set_option = "--default_set"
 list_indicator_sets_option = "--list_sets"
 
 # Parse the command line input
@@ -27,7 +26,6 @@ parser.add_argument(indicators_option1, indicators_option2, nargs="+", type=str,
 parser.add_argument(list_indicators_option, help="Lists all indicators that can be passed through", action="store_true")
 
 parser.add_argument(choose_set_option, nargs="+", type=str, help="Choose an indicator set to use just this time")
-parser.add_argument(set_default_indicator_set_option, nargs="+", type=str, help="Sets the default indicator set")
 parser.add_argument(list_indicator_sets_option, help="Lists what indicator sets there are to choose from", action="store_true")
 args = parser.parse_args()
 
@@ -38,29 +36,23 @@ def print_available_indicators():
 
 # Handle options
 
-# Handle a request to generate parameters
-if (args.indicators or args.all_indicators) and args.date and args.stock:
+# Handle a request to generate indicators
+if args.date and args.stock and not (args.set or args.list_sets):
     start_date, end_date = global_helpers.parse_start_and_end_dates(args.date)
-
-    if args.all_indicators:
-        indicators = helpers.all_indicators
-    else:
-        for item in args.indicators:
-            if item not in helpers.all_indicators:
-                print("You have listed an indicator that is not implemented. " + indicators_msg)
-                print_available_indicators()
-        indicators = args.indicators
 
     df = dbms.get_stock_data(args.stock, start_date, end_date)
 
-    # Generate indicators
-    ind_gen = helpers.IndicatorGenerator(indicators)
-    if end_date == None:
-        indicator_df = ind_gen.calc_indicators(start_date)
-    elif start_date < end_date:
-        indicator_df = ind_gen.calc_indicators(start_date, end_date)
-    elif start_date > end_date:
-        print("The start date should come before the end date.")
+    if not args.indicators and not args.all_indicators:
+        ind_gen = helpers.IndicatorGenerator()
+    if (args.indicators) and not
+        # Generate indicators
+        ind_gen = helpers.IndicatorGenerator(indicators)
+        if end_date == None:
+            indicator_df = ind_gen.calc_indicators(start_date)
+        elif start_date < end_date:
+            indicator_df = ind_gen.calc_indicators(start_date, end_date)
+        elif start_date > end_date:
+            print("The start date should come before the end date.")
 
     if indicator_df:
         dbms.save_indicators(indicator_df)
