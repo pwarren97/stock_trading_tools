@@ -1,21 +1,27 @@
 # This file has helpers for __main__.py
 import pandas as pd
 from datetime import datetime
-# from indicators.model import Indicator
-# from indicator_sets import IndicatorSet
+from indicators.model import Indicator
+from indicators.ema import EMA
+from indicators.macd import MACD
 
 all_indicators = \
 [
 "EMA",
 "MACD",
 "RoC",
-"SRoC"
+"SRoC",
+"W%R"
 ]
 
 indicator_sets = {
-    "std1" :
-    [
-        # Indicators
+    "std1" : [
+    EMA(13),
+    MACD(12, 26, 9)
+    ],
+    "std2" : [
+    EMA(13),
+    MACD(7, 36, 5)
     ]
 }
 
@@ -31,17 +37,6 @@ def validate_ind_param(indicators):
 def validate_set_param(set):
     return True
 
-
-class IndicatorGenerator():
-    def __init__(stock_df, indicator_set):
-        if not isinstance(indicator_set, IndicatorSet):
-            raise TypeError("The indicator set passed through must be of type IndicatorSet")
-        self.indicator_set = indicator_set
-
-    def calc_indicators(start_date, end_date=None):
-        if not isinstance(start_date, datetime):
-            raise TypeError("The start date must be in the form of a python datetime.datetime object.")
-        elif end_date is not None and not isinstance(end_date, datetime):
-            raise TypeError("The end date must be in the form of a python datetime.datetime object.")
-
-        return True
+# Returns a list of Indicator objects
+def parse_indicators(indicators):
+    return indicator_sets["std1"]

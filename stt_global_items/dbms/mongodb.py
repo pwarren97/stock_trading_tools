@@ -67,7 +67,7 @@ class Mongo(DBMS_Model):
             db.symbols.update(row, { "$set" : row }, upsert=True)
 
     @staticmethod
-    def get_indicators(indicators, start, end=None):
+    def get_indicators(ticker_symbols, start, end=None):
         pass
 
     @staticmethod

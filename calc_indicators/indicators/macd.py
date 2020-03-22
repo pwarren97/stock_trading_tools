@@ -3,14 +3,16 @@ import stt_global_items.conf as conf
 from .ema import EMA
 
 if conf.DB == "mongodb":
-    from stt_global_items.dbms import Mongo as dbms
+    from stt_global_items.dbms.mongodb import Mongo as dbms
 elif conf.DB == "sql":
-    from stt_global_items.dbms import SQL as dbms
+    from stt_global_items.dbms.sql import SQL as dbms
 
 # Outputs MACD line, Signal Line, and the MACD-Histogram
 class MACD(Indicator):
     # EMA's are to be used for the MACD and Signal Line
     def __init__(self, ema1, ema2, ema3):
+        if not isinstance(ema1, int) or not isinstance(ema2, int) or not isinstance(ema3, int):
+            raise TypeError("You must pass all parameters in the form of an integer.")
         self.ema1 = EMA(ema1)
         self.ema2 = EMA(ema2)
         self.ema3 = EMA(ema3)

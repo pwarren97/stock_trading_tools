@@ -3,6 +3,7 @@ import stt_global_items.conf as conf
 from datetime import datetime, timedelta
 import helpers
 from stt_global_items import global_helpers
+from indicators.generator import IndicatorGenerator
 
 if conf.DB == "mongodb":
     from stt_global_items.dbms.mongodb import Mongo as dbms
@@ -31,16 +32,18 @@ parser.add_argument(choose_set_option, nargs="+", type=str, help="Choose an indi
 parser.add_argument(list_indicator_sets_option, help="Lists what indicator sets there are to choose from", action="store_true")
 args = parser.parse_args()
 
-indicators_msg = "The indicators available for use is as follows:";
+list_ind_msg = "The indicators available for use is as follows:";
 def print_available_indicators():
     for item in helpers.all_indicators:
-        print("\t" + item)
+        print(" "*5 + item)
+
 
 # Input validation
-valid_date = args.date and helpers.validate_date_param(args.date)
-valid_stock = args.stock and helpers.validate_stock_param(args.stock)
-valid_indicators = args.indicators and helpers.validate_ind_param(args.indicators)
-valid_sets = args.set and helpers.validate_set_param(args.set)
+# If there exists an input that is also valid, the variables will be True
+valid_date = (args.date is not None) and helpers.validate_date_param(args.date)
+valid_stock = (args.stock is not None) and helpers.validate_stock_param(args.stock)
+valid_indicators = (args.indicators is not None) and helpers.validate_ind_param(args.indicators)
+valid_sets = (args.set is not None) and helpers.validate_set_param(args.set)
 
 
 # Handle options
@@ -52,27 +55,26 @@ if valid_date and valid_stock and (valid_sets ^ valid_indicators ^ args.all_indi
 
     # Set up the indicator generator
     if args.set:
-        ind_gen = helpers.IndicatorGenerator(db_data, helpers.indicator_sets{args.set})
+        ind_gen = IndicatorGenerator(db_data, helpers.indicator_sets[args.set])
     elif args.indicators:
-        ind_gen = helpers.IndicatorGenerator(db_data, indicators)
+        ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(args.indicators))
     else:
-        ind_gen = helpers.IndicatorGenerator(db_data, helpers.all_indicators)
+        ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(helpers.all_indicators))
 
+    # Generate indicators
     if end_date == None:
         indicator_df = ind_gen.calc_indicators(start_date)
     elif start_date < end_date:
         indicator_df = ind_gen.calc_indicators(start_date, end_date)
-    elif start_date > end_date:
+    elif start_date >= end_date:
         print("The start date should come before the end date.")
+        indicator_df = None
 
-    if indicator_df:
+    if not indicator_df.empty:
         dbms.save_indicators(indicator_df)
-    else:
+    elif indicator_df.empty:
         print("No data was saved to the database")
 """
-# Handle creating an indicator set
-elif args.indicators and not (args.date or args.stock):
-    pass
 # Handle errors
 else:
     msg_part1 = "You need to specify "
