@@ -4,6 +4,8 @@ from datetime import datetime
 from indicators.model import Indicator
 from indicators.ema import EMA
 from indicators.macd import MACD
+from stt_global_items import global_helpers
+import argparse
 
 all_indicators = \
 [
@@ -40,3 +42,28 @@ def validate_set_param(set):
 # Returns a list of Indicator objects
 def parse_indicators(indicators):
     return indicator_sets["std1"]
+
+def parse_arguments(parser):
+    if not isinstance(parser, argparse.ArgumentParser):
+        raise TypeError("You must pass through a argparse.ArgumentParser object.")
+
+    # set up string variables to represent the optional parameters' names
+    indicators_option1, indicators_option2 = "-i", "--indicators"
+    all_indicators_option = "--all_indicators"
+    list_indicators_option = "--list_indicators"
+
+    # indicator sets
+    choose_set_option = "--set"
+    list_indicator_sets_option = "--list_sets"
+
+    # add arguments
+    parser.add_argument(global_helpers.stock_option1, global_helpers.stock_option2, nargs="+", type=str, help=global_helpers.stock_param_help_msg)
+    parser.add_argument(global_helpers.date_option1, global_helpers.date_option2, nargs="+", type=str, help=global_helpers.date_param_help_msg)
+
+    parser.add_argument(indicators_option1, indicators_option2, nargs="+", type=str, help="Select what indicators to use")
+    parser.add_argument(all_indicators_option, help="Calculate all indicators at once", action='store_true')
+    parser.add_argument(list_indicators_option, help="Lists all indicators that can be passed through", action="store_true")
+
+    parser.add_argument(choose_set_option, nargs="+", type=str, help="Choose an indicator set to use just this time")
+    parser.add_argument(list_indicator_sets_option, help="Lists what indicator sets there are to choose from", action="store_true")
+    return parser.parse_args()

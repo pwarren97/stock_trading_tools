@@ -61,7 +61,7 @@ class DBMS_Model:
         raise NotImplementedError
 
     @staticmethod
-    def get_indicators(indicators, start, end=None):
+    def get_indicators(ticker_symbols, start, end=None):
         raise NotImplementedError
 
     @staticmethod

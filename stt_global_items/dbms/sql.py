@@ -9,5 +9,7 @@ class SQL(DBMS_Model):
 
     def __init__():
         pass
+
     @staticmethod
     def save_stock_data(pandas_obj):
+        pass

@@ -1,5 +1,7 @@
 from indicators.model import Indicator
 from datetime import datetime
+from stt_global_items import conf
+import pandas as pd
 
 if conf.DB == "mongodb":
     from stt_global_items.dbms.mongodb import Mongo as dbms
@@ -23,5 +25,5 @@ class IndicatorGenerator():
         elif end_date is not None and not isinstance(end_date, datetime):
             raise TypeError("The end date must be in the form of a python datetime.datetime object.")
 
-        self.indicator_df = dbms.get_indicators(start_date, end_date)
-        return True
+        self.indicator_df = dbms.get_indicators(["AAPL"], start_date, end_date)
+        return pd.DataFrame()

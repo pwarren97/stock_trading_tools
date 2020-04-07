@@ -10,27 +10,11 @@ if conf.DB == "mongodb":
 elif conf.DB == "sql":
     from stt_global_items.dbms.sql import SQL as dbms
 
-# set up string variables to represent the optional parameters' names
-indicators_option1, indicators_option2 = "-i", "--indicators"
-all_indicators_option = "--all_indicators"
-list_indicators_option = "--list_indicators"
 
-# indicator sets
-choose_set_option = "--set"
-list_indicator_sets_option = "--list_sets"
 
 # Parse the command line input
 parser = argparse.ArgumentParser()
-parser.add_argument(global_helpers.stock_option1, global_helpers.stock_option2, nargs="+", type=str, help=global_helpers.stock_param_help_msg)
-parser.add_argument(global_helpers.date_option1, global_helpers.date_option2, nargs="+", type=str, help=global_helpers.date_param_help_msg)
-
-parser.add_argument(indicators_option1, indicators_option2, nargs="+", type=str, help="Select what indicators to use")
-parser.add_argument(all_indicators_option, help="Calculate all indicators at once", action='store_true')
-parser.add_argument(list_indicators_option, help="Lists all indicators that can be passed through", action="store_true")
-
-parser.add_argument(choose_set_option, nargs="+", type=str, help="Choose an indicator set to use just this time")
-parser.add_argument(list_indicator_sets_option, help="Lists what indicator sets there are to choose from", action="store_true")
-args = parser.parse_args()
+args = helpers.parse_arguments(parser)
 
 list_ind_msg = "The indicators available for use is as follows:";
 def print_available_indicators():
@@ -68,12 +52,12 @@ if valid_date and valid_stock and (valid_sets ^ valid_indicators ^ args.all_indi
         indicator_df = ind_gen.calc_indicators(start_date, end_date)
     elif start_date >= end_date:
         print("The start date should come before the end date.")
-        indicator_df = None
 
-    if not indicator_df.empty:
-        dbms.save_indicators(indicator_df)
-    elif indicator_df.empty:
-        print("No data was saved to the database")
+    if 'indicator_df' in globals():
+        if not indicator_df.empty:
+            dbms.save_indicators(indicator_df)
+        elif indicator_df.empty:
+            print("No data was saved to the database")
 """
 # Handle errors
 else:
