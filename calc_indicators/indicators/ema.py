@@ -15,3 +15,14 @@ class EMA(Indicator):
 
     def calc_indicator(data_frame):
         pass
+
+    def __eq__(self, obj):
+        if notisinstance(obj, EMA):
+            return False
+        elif self.days == obj.days:
+            return True
+        else:
+            return False
+
+    def __ne__(self, obj):
+        return not self.__eq__(obj)

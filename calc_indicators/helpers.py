@@ -43,6 +43,28 @@ def validate_set_param(set):
 def parse_indicators(indicators):
     return indicator_sets["std1"]
 
+def parse_sets(sets):
+    if not isinstance(sets, list) or not isinstance(sets, str):
+        raise TypeError("The parameter must be in the form of a string or a list of strings.")
+
+    if isinstance(sets, list):
+        for item in sets:
+            if item not in indicator_sets:
+                raise TypeError("One of the items passed through was not a proper indicator set.")
+
+        # create list containing all elements in the sets mentioned
+        list = []
+        for set in sets:
+            list.extend(indicators_sets[set])
+
+        # remove duplicates
+        temp = []
+        for item in list:
+            if item not in temp:
+                temp.append(item)
+        return temp
+    else:
+
 def parse_arguments(parser):
     if not isinstance(parser, argparse.ArgumentParser):
         raise TypeError("You must pass through a argparse.ArgumentParser object.")
@@ -67,3 +89,9 @@ def parse_arguments(parser):
     parser.add_argument(choose_set_option, nargs="+", type=str, help="Choose an indicator set to use just this time")
     parser.add_argument(list_indicator_sets_option, help="Lists what indicator sets there are to choose from", action="store_true")
     return parser.parse_args()
+
+def print_available_indicators():
+    list_ind_msg = "The indicators available for use is as follows:"
+    print(list_ind_msg)
+    for item in helpers.all_indicators:
+        print(" "*5 + item)

@@ -115,5 +115,5 @@ class TestSource(unittest.TestCase):
     def test_get_stock_data(self):
         """Tests source.get_stock_data()"""
         pass
-
+        
 unittest.main()

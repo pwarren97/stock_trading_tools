@@ -20,3 +20,14 @@ class MACD(Indicator):
     # Returns the MACD line, the Signal Line, and the Histogram
     def calc_indicator(data_frame):
         pass
+
+    def __eq__(self, obj):
+        if not isinstance(obj, MACD):
+            return False
+        elif self.ema1 == obj.ema1 and self.ema2 == obj.ema2 and self.ema3 == self.ema3:
+            return True
+        else:
+            return False
+
+    def __ne__(self, obj):
+        return not self.__eq__(obj)

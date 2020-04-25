@@ -1,5 +1,13 @@
 # Class to represent an indicator with
-from abc import ABC
+from abc import ABC, abstractmethod
 class Indicator(ABC):
-    def calc_indicator(data_frame):
+    @abstractmethod
+    def calc_indicator(self, data_frame):
+        pass
+
+    @abstractmethod
+    def __eq__(self, obj):
+        pass
+
+    def __ne__(self, obj):
         pass

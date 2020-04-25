@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import helpers
 from stt_global_items import global_helpers
 from indicators.generator import IndicatorGenerator
+import pandas as pd
 
 if conf.DB == "mongodb":
     from stt_global_items.dbms.mongodb import Mongo as dbms
@@ -15,11 +16,6 @@ elif conf.DB == "sql":
 # Parse the command line input
 parser = argparse.ArgumentParser()
 args = helpers.parse_arguments(parser)
-
-list_ind_msg = "The indicators available for use is as follows:";
-def print_available_indicators():
-    for item in helpers.all_indicators:
-        print(" "*5 + item)
 
 
 # Input validation
@@ -39,13 +35,14 @@ if valid_date and valid_stock and (valid_sets ^ valid_indicators ^ args.all_indi
 
     # Set up the indicator generator
     if args.set:
-        ind_gen = IndicatorGenerator(db_data, helpers.indicator_sets[args.set])
+        ind_gen = IndicatorGenerator(db_data, helpers.parse_sets(args.set))
     elif args.indicators:
         ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(args.indicators))
     else:
         ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(helpers.all_indicators))
 
     # Generate indicators
+    indicator_df = pd.DataFrame()
     if end_date == None:
         indicator_df = ind_gen.calc_indicators(start_date)
     elif start_date < end_date:
@@ -53,11 +50,10 @@ if valid_date and valid_stock and (valid_sets ^ valid_indicators ^ args.all_indi
     elif start_date >= end_date:
         print("The start date should come before the end date.")
 
-    if 'indicator_df' in globals():
-        if not indicator_df.empty:
-            dbms.save_indicators(indicator_df)
-        elif indicator_df.empty:
-            print("No data was saved to the database")
+    if not indicator_df.empty:
+        dbms.save_indicators(indicator_df)
+    else:
+        print("No data was saved to the database")
 """
 # Handle errors
 else:
@@ -68,8 +64,7 @@ else:
     if args.date and args.stock:
         print(msg_part1 + "what indicators you want to use with (" + indicators_option1 + "|" + indicators_option2 + ") or " + all_indicators_option + ". " + global_helpers.help_msg)
         print("")
-        print(indicators_msg)
-        print_available_indicators()
+        helpers.print_available_indicators()
     elif (args.indicators or args.all_indicators) and args.date:
         print(msg_part1 + date_msg + ". "+ global_helpers.help_msg)
     elif (args.indicators or args.all_indicators) and args.stock:
