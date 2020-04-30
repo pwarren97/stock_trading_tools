@@ -20,8 +20,8 @@ args = helpers.parse_arguments(parser)
 
 # Input validation
 # If there exists an input that is also valid, the variables will be True
-valid_date = (args.date is not None) and helpers.validate_date_param(args.date)
-valid_stock = (args.stock is not None) and helpers.validate_stock_param(args.stock)
+valid_date = (args.date is not None) and global_helpers.validate_date_param(args.date)
+valid_stock = (args.stock is not None) and global_helpers.validate_stock_param(args.stock)
 valid_indicators = (args.indicators is not None) and helpers.validate_ind_param(args.indicators)
 valid_sets = (args.set is not None) and helpers.validate_set_param(args.set)
 
@@ -39,7 +39,7 @@ if valid_date and valid_stock and (valid_sets ^ valid_indicators ^ args.all_indi
     elif args.indicators:
         ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(args.indicators))
     else:
-        ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(helpers.all_indicators))
+        ind_gen = IndicatorGenerator(db_data, helpers.parse_indicators(helpers.all_indicator_args))
 
     # Generate indicators
     indicator_df = pd.DataFrame()
@@ -62,7 +62,7 @@ else:
     stock_msg = "the stock with (" + global_helpers.stock_option1 + "|" + global_helpers.stock_option2 + ")"
 
     if args.date and args.stock:
-        print(msg_part1 + "what indicators you want to use with (" + indicators_option1 + "|" + indicators_option2 + ") or " + all_indicators_option + ". " + global_helpers.help_msg)
+        print(msg_part1 + "what indicators you want to use with (" + indicators_option1 + "|" + indicators_option2 + ") or " + all_indicator.args_option + ". " + global_helpers.help_msg)
         print("")
         helpers.print_available_indicators()
     elif (args.indicators or args.all_indicators) and args.date:

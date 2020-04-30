@@ -7,7 +7,7 @@ from indicators.macd import MACD
 from stt_global_items import global_helpers
 import argparse
 
-all_indicators = \
+all_indic_args = \
 [
 "EMA",
 "MACD",
@@ -27,12 +27,6 @@ indicator_sets = {
     ]
 }
 
-def validate_date_param(date):
-    return True
-
-def validate_stock_param(stock):
-    return True
-
 def validate_ind_param(indicators):
     return True
 
@@ -44,26 +38,27 @@ def parse_indicators(indicators):
     return indicator_sets["std1"]
 
 def parse_sets(sets):
+    # Validation checks
     if not isinstance(sets, list) or not isinstance(sets, str):
         raise TypeError("The parameter must be in the form of a string or a list of strings.")
+    # Turn a string parameter into a list for the rest of the code to operate on
+    elif isinstance(sets, str):
+        sets = [sets]
+    for item in sets:
+        if item not in indicator_sets:
+            raise TypeError("One of the items passed through was not a proper indicator set.")
 
-    if isinstance(sets, list):
-        for item in sets:
-            if item not in indicator_sets:
-                raise TypeError("One of the items passed through was not a proper indicator set.")
+    # create list containing all elements in the sets mentioned
+    list = []
+    for set in sets:
+        list.extend(indicators_sets[set])
 
-        # create list containing all elements in the sets mentioned
-        list = []
-        for set in sets:
-            list.extend(indicators_sets[set])
-
-        # remove duplicates
-        temp = []
-        for item in list:
-            if item not in temp:
-                temp.append(item)
-        return temp
-    else:
+    # remove duplicates
+    temp = []
+    for item in list:
+        if item not in temp:
+            temp.append(item)
+    return temp
 
 def parse_arguments(parser):
     if not isinstance(parser, argparse.ArgumentParser):
