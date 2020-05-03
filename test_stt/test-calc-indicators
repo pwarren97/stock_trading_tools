@@ -1,0 +1,62 @@
+#!/bin/sh
+
+separator="-----------------------------------------------------"
+
+# Success
+# Single stock
+echo "Single Stock Success tests"
+echo $separator
+echo "#1:"
+calc-indicators -s aapl -d 20190102 -i EMA
+echo ""
+echo "#2:"
+calc-indicators -s aapl -d 20190102 20190104 -i EMA
+echo ""
+echo "#3:"
+calc-indicators -s aapl -d 20190102 -i EMA MACD
+echo ""
+echo "#4:"
+calc-indicators -s aapl -d 20190102 20190104 -i EMA MACD
+echo $separator
+echo ""
+
+# Two Stock
+echo "Multiple Stock Success Tests"
+echo $separator
+echo "#1:"
+calc-indicators -s aapl msft -d 20190102 -i EMA
+echo ""
+echo "#2:"
+calc-indicators -s aapl msft -d 20190102 20190104 -i EMA
+echo ""
+echo "#3:"
+calc-indicators -s aapl msft -d 20190102 -i EMA MACD
+echo ""
+echo "#4:"
+calc-indicators -s aapl msft -d 20190102 20190104 -i EMA MACD
+echo $separator
+echo ""
+
+# Fail
+echo "Fail Tests"
+echo $separator
+echo "#1 Missing Stock Argument:"
+calc-indicators -d 20190102 -i EMA
+echo ""
+echo "#2 Missing Stock Argument Parameter:"
+calc-indicators -s -d 20190102 -i EMA
+echo ""
+
+echo "#3 Missing Date Argument:"
+calc-indicators -s aapl -i EMA
+echo ""
+echo "#4 Missing Date Argument Parameter:"
+calc-indicators -s aapl -d -i EMA
+echo ""
+
+echo "#5 Missing Indicator Argument:"
+calc-indicators -s aapl -d 20190102
+echo ""
+echo "#6 Missing Indicator Argument Parameter:"
+calc-indicators -s aapl -d 20190102 -i
+echo $separator
