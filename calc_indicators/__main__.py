@@ -12,7 +12,6 @@ elif conf.DB == "sql":
     from stt_global_items.dbms.sql import SQL as dbms
 
 
-
 # Parse the command line input
 parser = argparse.ArgumentParser()
 args = helpers.parse_arguments(parser)
@@ -60,13 +59,17 @@ else:
     date_msg = "the date with (" + global_helpers.date_option1 + "|" + global_helpers.date_option2 + ")"
     stock_msg = "the stock with (" + global_helpers.stock_option1 + "|" + global_helpers.stock_option2 + ")"
 
+    # missing indicator option
     if args.date and args.stock:
         print(msg_part1 + "what indicators you want to use with (" + helpers.indicators_option1 + "|" + helpers.indicators_option2 + ") or " + helpers.all_indicators_option + ". " + global_helpers.help_msg)
         print("")
         helpers.print_available_indicators()
+    # missing stock option
     elif (args.indicators or args.all_indicators) and args.date:
         print(msg_part1 + stock_msg + ". "+ global_helpers.help_msg)
+    # missing date parameter
     elif (args.indicators or args.all_indicators) and args.stock:
         print(msg_part1 + date_msg + ". " + global_helpers.help_msg)
+    # missing date and stock parameters
     elif (args.indicators or args.all_indicators):
         print(msg_part1 + date_msg + "or " + stock_msg + ". " + global_helpers.help_msg)

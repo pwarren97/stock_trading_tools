@@ -56,7 +56,14 @@ class DBMS_Model:
     @staticmethod
     def save_symbols(data_frame):
         """
-        Saves symbols to the database. Must be in a pandas object.
+        Saves symbols to the database in the form of a pandas object.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def get_symbols(data_frame):
+        """
+        Pulls symbols from the database in the form of a pandas object.
         """
         raise NotImplementedError
 

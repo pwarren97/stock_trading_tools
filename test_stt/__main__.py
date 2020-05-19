@@ -56,10 +56,24 @@ class TestDBMS(unittest.TestCase):
             "open": [154.89, 99.55]
         }
 
+        self.symbols = {
+            "cik": ["1090872", "1675149", None, None],
+            "currency": ["USD", "USD", "USD", "USD"],
+            "date": ["2020-03-19", "2020-03-19", "2020-03-19", "2020-03-19"],
+            "exchange": ["NYS", "NYS", "PSE", "NAS"],
+            "figi": ["BBG000C2V3D6", "BBG00B3T3HD3", "BBG00LPXX872", "BBG000V2S3P6"],
+            "name": ["Agilent Technologies Inc.", "Alcoa Corp.", "Perth Mint Physical Gold ETF", "ATA Creativity Global Sponsored ADR"],
+            "region": ["US", "US", "US", "US"],
+            "symbol": ["A", "AA", "AAAU", "AACG"],
+            "type": ["cs", "cs", "et", "ad"]
+        }
+
         self.test_df1 = pd.DataFrame(self.sing_stock_mult_date)
         self.test_df2 = pd.DataFrame(self.sing_stock_sing_date)
         self.test_df3 = pd.DataFrame(self.mult_stock_mult_date)
         self.test_df4 = pd.DataFrame(self.mult_stock_sing_date)
+
+        self.test_symbols = pd.DataFrame(self.symbols)
 
     def tearDown(self):
         """Gets called after every test case"""
@@ -74,7 +88,8 @@ class TestDBMS(unittest.TestCase):
 
     def test_get_stock_data(self):
         """Tests dbms.get_stock_data()"""
-        dbms.save_stock_data(self.test_df1)
+        # data was saved in the test_save_stock_data() test,
+        # failures from test_save_stock_data() might cause errors in this function
         df1 = dbms.get_stock_data(["AAPL"], datetime(2019, 1, 2), datetime(2019, 1, 4))
         df1 = df1["AAPL"]
 
@@ -99,8 +114,12 @@ class TestDBMS(unittest.TestCase):
         self.assertTrue(self.test_df4.equals(df4))
 
     def test_save_symbols(self):
-        """Tests dbms.save_stock_data()"""
-        pass
+        """Tests dbms.save_symbols()"""
+        dbms.save_symbols(self.test_symbols)
+
+    def test_get_symbols(self):
+        """Tests dbms.get_symbols()"""
+        all = dbms.get_symbols()
 
     def test_get_indicators(self):
         """Tests dbms.get_indicators()"""
@@ -115,5 +134,5 @@ class TestSource(unittest.TestCase):
     def test_get_stock_data(self):
         """Tests source.get_stock_data()"""
         pass
-        
+
 unittest.main()
