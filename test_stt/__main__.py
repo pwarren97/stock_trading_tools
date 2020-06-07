@@ -65,7 +65,8 @@ class TestDBMS(unittest.TestCase):
             "name": ["Agilent Technologies Inc.", "Alcoa Corp.", "Perth Mint Physical Gold ETF", "ATA Creativity Global Sponsored ADR"],
             "region": ["US", "US", "US", "US"],
             "symbol": ["A", "AA", "AAAU", "AACG"],
-            "type": ["cs", "cs", "et", "ad"]
+            "type": ["cs", "cs", "et", "ad"],
+            "sources": ["iex", "iex", "iex", "iex"]
         }
 
         self.test_df1 = pd.DataFrame(self.sing_stock_mult_date)
@@ -119,7 +120,8 @@ class TestDBMS(unittest.TestCase):
 
     def test_get_symbols(self):
         """Tests dbms.get_symbols()"""
-        all = dbms.get_symbols()
+        # all = dbms.get_symbols()
+        pass
 
     def test_get_indicators(self):
         """Tests dbms.get_indicators()"""

@@ -64,7 +64,7 @@ class Mongo(DBMS_Model):
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
             # Update is used here instead of inse
-            db.symbols.update(row, { "$set" : row }, upsert=True)
+            db.symbols.update_one(row, { "$set" : row }, upsert=True)
 
     @staticmethod
     def get_indicators(ticker_symbols, start, end=None):
