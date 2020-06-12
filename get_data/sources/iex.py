@@ -109,6 +109,7 @@ class IEXCloud(Source):
         # Remove IEX specific info
         del symbols["iexId"]
         del symbols["isEnabled"]
+        symbols["source"] = "iex"
 
         return symbols
 

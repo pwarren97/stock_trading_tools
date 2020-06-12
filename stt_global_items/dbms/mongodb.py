@@ -25,7 +25,7 @@ class Mongo(DBMS_Model):
             data_frame.iloc[idx]
             row = data_frame.iloc[idx].to_dict()
 
-            # Update is used here instead of insert too avoid duplicates
+            # Update with upsert is used here instead of insert too avoid duplicates
             row_to_update = { "date" : row["date"], "symbol" : row["symbol"]}
             db.stocks.update_one(row_to_update, { "$set": row }, upsert=True)
 
@@ -63,7 +63,7 @@ class Mongo(DBMS_Model):
         # save the symbols now row by row
         for idx in range(len(data_frame)):
             row = data_frame.loc[idx].to_dict()
-            # Update is used here instead of inse
+            # Upsert is used here so that it updates a prexisting row
             db.symbols.update_one(row, { "$set" : row }, upsert=True)
 
     @staticmethod
