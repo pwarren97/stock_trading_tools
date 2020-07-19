@@ -1,5 +1,12 @@
 from datetime import datetime
 
+def import_db_model():
+    if conf.DB == "mongodb":
+        from stt_global_items.dbms.mongodb import Mongo as dbms
+    elif conf.DB == "sql":
+        from stt_global_items.dbms.sql import SQL as dbms
+    return dbms
+
 def parse_start_and_end_dates(dates):
     year, month, day = parse_date(dates[0])
     start_date = datetime(year, month, day)
