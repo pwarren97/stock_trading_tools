@@ -3,7 +3,7 @@ from stt_global_items import conf
 import pandas as pd
 from datetime import datetime
 import numpy as np
-import db_data_helper as dbdh
+import ..db_data_helper as dbdh
 import os
 
 if conf.DB == "mongodb":
