@@ -4,9 +4,11 @@ import pandas as pd
 from datetime import datetime
 import numpy as np
 import db_data_helper as dbdh
+import os
 
 if conf.DB == "mongodb":
     from stt_global_items.dbms.mongodb import Mongo as dbms
+    os.system('unzip mongodb_mock_dbs.zip')
 elif conf.DB == "sql":
     from stt_global_items.dbms.sql import SQL as dbms
 
