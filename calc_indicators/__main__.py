@@ -6,7 +6,10 @@ from stt_global_items import global_helpers
 from indicators.generator import IndicatorGenerator
 import pandas as pd
 
-dbms = global_helpers.import_db_model()
+if conf.DB == "mongodb":
+    from stt_global_items.dbms.mongodb import Mongo as dbms
+elif conf.DB == "sql":
+    from stt_global_items.dbms.sql import SQL as dbms
 
 
 # Parse the command line input

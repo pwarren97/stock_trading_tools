@@ -5,9 +5,15 @@ from datetime import datetime, timedelta
 import helpers
 
 # import the appropriate source and dbms as indicated in the conf.py file
-source = helpers.import_download_source()
-dbms = global_helpers.import_db_model()
+if conf.DATA_SOURCE == "iex":
+    from sources.iex import IEXCloud as source
+# elif conf.DATA_SOURCE == "someotherone":
+#     from sources.iex import ThatObject as source
 
+if conf.DB == "mongodb":
+    from stt_global_items.dbms.mongodb import Mongo as dbms
+elif conf.DB == "sql":
+    from stt_global_items.dbms.sql import SQL as dbms
 
 
 # Specify the name of the options
