@@ -1,6 +1,6 @@
 # Configuration file containing relevant information
 
-# [ Database Information]
+# [ Database Information ]
 DB = "mongodb"
 # [ SQL ]
 SQL_SOCKET=""
@@ -12,7 +12,7 @@ MONGO_SOCKET="mongodb://localhost:27017/"
 
 
 # [ Stock Data Source ]
-# [ General Information]
+# [ General Information ]
 DATA_SOURCE="iex"
 
 # [ IEX ]

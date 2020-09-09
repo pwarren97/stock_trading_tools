@@ -3,14 +3,11 @@ from stt_global_items import conf
 import pandas as pd
 from datetime import datetime
 import numpy as np
-import ..db_data_helper as dbdh
+import .db_data_helper as dbdh
 import os
 
-if conf.DB == "mongodb":
-    from stt_global_items.dbms.mongodb import Mongo as dbms
-    os.system('unzip mongodb_mock_dbs.zip')
-elif conf.DB == "sql":
-    from stt_global_items.dbms.sql import SQL as dbms
+
+from stt_global_items.dbms.mongodb import Mongo as dbms
 
 class TestDBMS(unittest.TestCase):
 
@@ -18,8 +15,6 @@ class TestDBMS(unittest.TestCase):
     # Note: Volume has to be a float, it errors with an integer, must see if there is an integer fix
     def setUp(self):
         """Gets called before every test case"""
-
-
         self.test_df1 = pd.DataFrame(dbdh.sing_stock_mult_date)
         self.test_df2 = pd.DataFrame(dbdh.sing_stock_sing_date)
         self.test_df3 = pd.DataFrame(dbdh.mult_stock_mult_date)
@@ -33,10 +28,7 @@ class TestDBMS(unittest.TestCase):
 
     def test_save_stock_data(self):
         """Tests dbms.save_stock_data()"""
-        dbms.save_stock_data(self.test_df1)
-        dbms.save_stock_data(self.test_df2)
-        dbms.save_stock_data(self.test_df3)
-        dbms.save_stock_data(self.test_df4)
+        pass
 
     def test_get_stock_data(self):
         """Tests dbms.get_stock_data()"""
@@ -87,5 +79,3 @@ class TestSource(unittest.TestCase):
     def test_get_stock_data(self):
         """Tests source.get_stock_data()"""
         pass
-
-unittest.main()
