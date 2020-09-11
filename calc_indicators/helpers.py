@@ -4,7 +4,7 @@ from datetime import datetime
 from indicators.model import Indicator
 from indicators.ema import EMA
 from indicators.macd import MACD
-from stt_global_items import global_helpers
+from stt_lib import global_helpers
 import argparse
 
 all_indicators = \

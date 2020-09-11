@@ -3,8 +3,7 @@ from stt_global_items import conf
 import pandas as pd
 from datetime import datetime
 import numpy as np
-import .db_data_helper as dbdh
-import os
+from test_stt.db_model_tests import sample_data
 
 
 from stt_global_items.dbms.mongodb import Mongo as dbms
@@ -15,12 +14,12 @@ class TestDBMS(unittest.TestCase):
     # Note: Volume has to be a float, it errors with an integer, must see if there is an integer fix
     def setUp(self):
         """Gets called before every test case"""
-        self.test_df1 = pd.DataFrame(dbdh.sing_stock_mult_date)
-        self.test_df2 = pd.DataFrame(dbdh.sing_stock_sing_date)
-        self.test_df3 = pd.DataFrame(dbdh.mult_stock_mult_date)
-        self.test_df4 = pd.DataFrame(dbdh.mult_stock_sing_date)
+        self.test_df1 = pd.DataFrame(sample_data.sing_stock_mult_date)
+        self.test_df2 = pd.DataFrame(sample_data.sing_stock_sing_date)
+        self.test_df3 = pd.DataFrame(sample_data.mult_stock_mult_date)
+        self.test_df4 = pd.DataFrame(sample_data.mult_stock_sing_date)
 
-        self.test_symbols = pd.DataFrame(dbdh.symbols)
+        self.test_symbols = pd.DataFrame(sample_data.symbols)
 
     def tearDown(self):
         """Gets called after every test case"""

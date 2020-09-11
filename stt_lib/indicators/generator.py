@@ -1,12 +1,10 @@
 from indicators.model import Indicator
 from datetime import datetime
-from stt_global_items import conf
+from stt_lib import conf
+from stt_lib.dbms.helpers import import_dbms
 import pandas as pd
 
-if conf.DB == "mongodb":
-    from stt_global_items.dbms.mongodb import Mongo as dbms
-elif conf.DB == "sql":
-    from stt_global_items.dbms.sql import SQL as dbms
+dbms = import_dbms()
 
 class IndicatorGenerator():
     def __init__(self, stock_df, indicator_set):

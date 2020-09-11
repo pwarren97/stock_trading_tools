@@ -1,20 +1,13 @@
 import argparse
-import stt_global_items.conf as conf
-from stt_global_items import global_helpers
+import stt_lib.conf as conf
+from stt_lib import global_helpers
 from datetime import datetime, timedelta
+from stt_lib.sources.helpers import import_source
+from stt_lib.dbms.helpers import import_dbms
 import helpers
 
-# import the appropriate source and dbms as indicated in the conf.py file
-if conf.DATA_SOURCE == "iex":
-    from sources.iex import IEXCloud as source
-# elif conf.DATA_SOURCE == "someotherone":
-#     from sources.iex import ThatObject as source
-
-if conf.DB == "mongodb":
-    from stt_global_items.dbms.mongodb import Mongo as dbms
-elif conf.DB == "sql":
-    from stt_global_items.dbms.sql import SQL as dbms
-
+source = import_source()
+dbms = import_dbms()
 
 # Specify the name of the options
 symbols_option = "--symbols"

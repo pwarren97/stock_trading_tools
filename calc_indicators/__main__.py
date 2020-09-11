@@ -1,15 +1,13 @@
 import argparse
-import stt_global_items.conf as conf
+import stt_lib.conf as conf
 from datetime import datetime, timedelta
 import helpers
-from stt_global_items import global_helpers
-from indicators.generator import IndicatorGenerator
+from stt_lib import global_helpers
+from stt_lib.indicators.generator import IndicatorGenerator
+from stt_lib.dbms.helpers import import_dbms
 import pandas as pd
 
-if conf.DB == "mongodb":
-    from stt_global_items.dbms.mongodb import Mongo as dbms
-elif conf.DB == "sql":
-    from stt_global_items.dbms.sql import SQL as dbms
+dbms = import_dbms()
 
 
 # Parse the command line input

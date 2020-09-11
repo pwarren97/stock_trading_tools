@@ -1,11 +1,9 @@
 from .model import Indicator
-import stt_global_items.conf as conf
+from stt_lib.dbms.helpers import import_dbms
+import stt_lib.conf as conf
 import pandas as pd
 
-if conf.DB == "mongodb":
-    from stt_global_items.dbms.mongodb import Mongo as dbms
-elif conf.DB == "sql":
-    from stt_global_items.dbms.sql import SQL as dbms
+dbms = import_dbms()
 
 
 class EMA(Indicator):
