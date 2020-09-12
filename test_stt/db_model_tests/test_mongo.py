@@ -1,12 +1,12 @@
 import unittest
-from stt_global_items import conf
+from stt_lib import conf
 import pandas as pd
 from datetime import datetime
 import numpy as np
 from test_stt.db_model_tests import sample_data
 
 
-from stt_global_items.dbms.mongodb import Mongo as dbms
+from stt_lib.dbms.mongodb import Mongo as dbms
 
 class TestDBMS(unittest.TestCase):
 

@@ -1,6 +1,7 @@
 # Configuration file containing relevant information
 
 # [ Database Information ]
+# DB should be the name of the .py file for the model
 DB = "mongodb"
 # [ SQL ]
 SQL_SOCKET=""
