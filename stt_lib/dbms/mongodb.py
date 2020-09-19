@@ -2,7 +2,7 @@ from .model import DBMS_Model
 import pandas as pd
 import pymongo
 from datetime import datetime
-from stt_global_items import conf
+from stt_lib import conf
 
 # global db information used by all the functions
 client = pymongo.MongoClient(conf.MONGO_SOCKET)
