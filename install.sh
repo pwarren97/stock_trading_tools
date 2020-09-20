@@ -1,9 +1,12 @@
 #!/bin/sh
-cp -r ./get_data/ /usr/local/bin/
-cp -r ./get-data /usr/local/bin/
-cp -r ./calc_indicators/ /usr/local/bin/
-cp -r ./calc-indicators /usr/local/bin/
-cp -r ./stt_lib /usr/lib/python3.8/
 
-chmod +x /usr/local/bin/get-data
-chmod +x /usr/local/bin/calc-indicators
+EXECLOC=/usr/local/bin
+LIBLOC=~/.pyenv/versions/3.8.5/lib/python3.8
+cp -r ./get_data/ $EXECLOC
+cp -r ./get-data $EXECLOC
+cp -r ./calc_indicators/ $EXECLOC
+cp -r ./calc-indicators $EXECLOC
+cp -r ./stt_lib $LIBLOC
+
+chmod +x $EXECLOC/get-data
+chmod +x $EXECLOC/calc-indicators
