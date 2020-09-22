@@ -16,6 +16,4 @@ pyenv local 3.8.5
 cd ./installer_scripts
 
 # Install python libraries with pip
-INSTALLPYTHONLIBS=./install-python-libraries.sh
-chmod +x $INSTALLPYTHONLIBS
-/bin/sh $INSTALLPYTHONLIBS
+pip3 install -r ../requirements.txt
