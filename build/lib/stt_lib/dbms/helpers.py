@@ -1,5 +1,3 @@
-import stt_lib
-
 def import_dbms():
     if stt_lib.conf.DB == "mongodb":
         from stt_lib.dbms.mongodb import Mongo as dbms
