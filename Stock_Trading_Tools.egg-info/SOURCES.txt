@@ -1,4 +1,5 @@
 README.md
+setup.cfg
 setup.py
 Stock_Trading_Tools.egg-info/PKG-INFO
 Stock_Trading_Tools.egg-info/SOURCES.txt

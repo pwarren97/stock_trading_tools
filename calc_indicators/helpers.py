@@ -1,9 +1,9 @@
 # This file has helpers for __main__.py
 import pandas as pd
 from datetime import datetime
-from indicators.model import Indicator
-from indicators.ema import EMA
-from indicators.macd import MACD
+from stt_lib.indicators.model import Indicator
+from stt_lib.indicators.ema import EMA
+from stt_lib.indicators.macd import MACD
 from stt_lib import global_helpers
 import argparse
 

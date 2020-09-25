@@ -1,4 +1,4 @@
-from indicators.model import Indicator
+from .model import Indicator
 from datetime import datetime
 from stt_lib import conf
 from stt_lib.dbms.helpers import import_dbms
