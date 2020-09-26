@@ -1,2 +1,2 @@
 #!/bin/sh
-python3 /usr/local/bin/calc_indicators/ $@
+python3 -m calc_indicators $@

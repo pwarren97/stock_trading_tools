@@ -1,4 +1,5 @@
-import stt_lib
+import stt_lib.conf
+import stt_lib.dbms
 
 def import_dbms():
     if stt_lib.conf.DB == "mongodb":
