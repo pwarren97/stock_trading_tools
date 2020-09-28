@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 from setuptools.config import read_configuration
-setup_conf = read_configuration('./setup.cfg')
+# setup_conf = read_configuration('./setup.cfg')
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -17,6 +17,7 @@ setup(
     install_requires= [
         "iexfinance",
         "pandas",
-        'pymongo'
+        'pymongo',
+        'mongobox'
     ]
 )

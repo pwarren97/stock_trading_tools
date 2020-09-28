@@ -12,6 +12,15 @@ class Mongo(DBMS_Model):
     """
     Class for communicating with a MongoDB.
     """
+    @staticmethod
+    def switch_to_sandbox():
+        """
+        Switches to sandbox for unit testing purposes.
+        """
+        from mongobox import MongoBox
+        box = MongoBox()
+        box.start()
+        db = box.client()
 
     @staticmethod
     def save_stock_data(data_frame):
