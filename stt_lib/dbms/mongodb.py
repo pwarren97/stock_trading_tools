@@ -4,23 +4,32 @@ import pymongo
 from datetime import datetime
 from stt_lib import conf
 
-# global db information used by all the functions
-client = pymongo.MongoClient(conf.MONGO_SOCKET)
-db = client["stocks"]
+# global db to be used by all functions, since there is only one instance
+db = None
 
 class Mongo(DBMS_Model):
     """
     Class for communicating with a MongoDB.
     """
     @staticmethod
-    def switch_to_sandbox():
+    def connect():
+        global db
+        client = pymongo.MongoClient(conf.MONGO_SOCKET)
+        db = client["stocks"]
+
+    @staticmethod
+    def use_sandbox(db_path=None):
         """
-        Switches to sandbox for unit testing purposes.
+        Switches to using a sandbox for unit testing purposes.
         """
-        from mongobox import MongoBox
-        box = MongoBox()
-        box.start()
-        db = box.client()
+        global db
+        try:
+            from mongobox import MongoBox
+            box = MongoBox(db_path=db_path) if db_path != None else MongoBox()
+            box.start()
+            db = box.client()
+        except:
+            raise Exception("Could not connect to mongobox sandbox")
 
     @staticmethod
     def save_stock_data(data_frame):

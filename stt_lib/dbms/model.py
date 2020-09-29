@@ -2,6 +2,20 @@
 
 class DBMS_Model:
     @staticmethod
+    def connect():
+        """
+        Connect to the database
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def use_sandbox(db_path=None):
+        """
+        Switches to using a sandbox for unit testing purposes
+        """
+        raise NotImplementedError
+
+    @staticmethod
     def save_stock_data(data_frame):
         """
         Saves a list of pandas objects to the database with columns:
