@@ -14,12 +14,12 @@ class TestDBMS(unittest.TestCase):
     # Note: Volume has to be a float, it errors with an integer, must see if there is an integer fix
     def setUp(self):
         """Gets called before every test case"""
-        self.test_df1 = pd.DataFrame(sample_data.sing_stock_mult_date)
-        self.test_df2 = pd.DataFrame(sample_data.sing_stock_sing_date)
-        self.test_df3 = pd.DataFrame(sample_data.mult_stock_mult_date)
-        self.test_df4 = pd.DataFrame(sample_data.mult_stock_sing_date)
+        self.test_df1 = sample_data.test_df1
+        self.test_df2 = sample_data.test_df2
+        self.test_df3 = sample_data.test_df3
+        self.test_df4 = sample_data.test_df4
 
-        self.test_symbols = pd.DataFrame(sample_data.symbols)
+        self.test_symbols = sample_data.test_symbols
 
     def tearDown(self):
         """Gets called after every test case"""
