@@ -12,9 +12,20 @@ class Mongo(DBMS_Model):
     Class for communicating with a MongoDB.
     """
     @staticmethod
-    def connect():
+    def connect(host=None, port=None):
+        """
+        Connect to mongodb database
+        """
         global db
-        client = pymongo.MongoClient(conf.MONGO_SOCKET)
+        if host is None and port is None:
+            client = pymongo.MongoClient(conf.MONGO_HOST, conf.MONGO_PORT)
+        elif host is not None and port is not None:
+            client = pymongo.MongoClient(host, port)
+        else:
+            raise ValueError('You need to specify either the host and port \
+                number or specify nothing and it will use the default \
+                configuration')
+
         db = client["stocks"]
 
     @staticmethod

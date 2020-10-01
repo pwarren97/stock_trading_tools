@@ -1,4 +1,5 @@
 from datetime import datetime
+# sample_data is the same pulled from IEXCloud
 
 # Single stock Multiple date example
 sing_stock_mult_date = {

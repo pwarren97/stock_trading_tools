@@ -11,7 +11,6 @@ dbms.use_sandbox()
 
 class TestDBMS(unittest.TestCase):
 
-    # data is the same pulled from IEXCloud
     # Note: Volume has to be a float, it errors with an integer, must see if there is an integer fix
     def setUp(self):
         """Gets called before every test case"""
