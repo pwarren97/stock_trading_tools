@@ -1,16 +1,18 @@
 # Configuration file containing relevant information
 
 # [ Database Information ]
-# DB should be the name of the .py file for the model
+# DB should be the name of the .py file containing the model
 DB = "mongodb"
+
 # [ SQL ]
 SQL_SOCKET=""
 SQL_USERNAME=""
 SQL_PASSWORD=""
 
 # [ MongoDB ]
-MONGO_SOCKET="mongodb://localhost:27017/"
-
+MONGO_HOST="localhost"
+MONGO_PORT=27017
+# MONGO_SOCKET_URI="mongodb://" + MONGO_HOST + ":" + MONGO_PORT + "/"
 
 # [ Stock Data Source ]
 # [ General Information ]

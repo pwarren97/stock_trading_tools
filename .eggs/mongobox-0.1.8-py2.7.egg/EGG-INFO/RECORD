@@ -1,0 +1,13 @@
+mongobox/__init__.py,sha256=QqakRP76SeISed5onWU8KHgk97M_W5e5d1mACd9uLTA,129
+mongobox/mongobox.py,sha256=nbW2OFvybHX8El9kgpbxAGKQsOUJJrVY01nw6iJXHck,4288
+mongobox/nose2_plugin.py,sha256=e-cSFd8DQTGmD3tzKagbx8xFbOu0i6FQ9SiVM7-laIU,2218
+mongobox/nose_plugin.py,sha256=_xy_XAxU9qXMF70lYHE4w5-srXqy9gV3OhcBv_8V0TU,2990
+mongobox/unittest.py,sha256=7CfWo-_hTWbWVN_cEbc76UUSkqsvYTD2Nk5WjOvsZkI,2842
+mongobox/utils.py,sha256=D7eRys1Qm-A3-FfXIEpo-PE0Q027MjO4gwYCf2hP3kU,832
+mongobox-0.1.8.dist-info/AUTHORS.md,sha256=ESOauHbtYARRmNpybpQ26Jvzj7cyqSEXacdbfIa071o,430
+mongobox-0.1.8.dist-info/LICENSE,sha256=7SpyaH3IePcIu7nJZHKkG1o2NrvrsYLv_JIqcUiRIRE,581
+mongobox-0.1.8.dist-info/METADATA,sha256=VMoPQJ0qW8Yy0JbFVkyBWYgR1Mf4f-Qg5hFNulH8Tzc,4776
+mongobox-0.1.8.dist-info/WHEEL,sha256=ZvfnntGaZglpRLAKVkx18HrxfMwCXrA0b-ARJVnnMrw,92
+mongobox-0.1.8.dist-info/entry_points.txt,sha256=2pQLUfVQRQKdWgITBW7SsSn4jl1sFqrmfVVFigQTuSY,68
+mongobox-0.1.8.dist-info/top_level.txt,sha256=2smrAQMG_7I1cAyQD_FXBhoHs21Jgd6Efr_-oDRxDxE,9
+mongobox-0.1.8.dist-info/RECORD,,

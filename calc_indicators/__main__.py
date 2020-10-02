@@ -1,7 +1,7 @@
 import argparse
 import stt_lib.conf as conf
 from datetime import datetime, timedelta
-import calc_indicators.helpers
+import calc_indicators.helpers as helpers
 from stt_lib import global_helpers
 from stt_lib.indicators.generator import IndicatorGenerator
 from stt_lib.dbms.helpers import import_dbms

@@ -1,4 +1,6 @@
 from datetime import datetime
+import pandas as pd
+# sample_data is the same pulled from IEXCloud
 
 # Single stock Multiple date example
 sing_stock_mult_date = {
@@ -53,3 +55,11 @@ symbols = {
     "type": ["cs", "cs", "et", "ad"],
     "source": ["iex", "iex", "iex", "iex"]
 }
+
+
+test_df1 = pd.DataFrame(sing_stock_mult_date)
+test_df2 = pd.DataFrame(sing_stock_sing_date)
+test_df3 = pd.DataFrame(mult_stock_mult_date)
+test_df4 = pd.DataFrame(mult_stock_sing_date)
+
+test_symbols = pd.DataFrame(symbols)
