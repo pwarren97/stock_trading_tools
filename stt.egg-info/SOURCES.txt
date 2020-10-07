@@ -1,11 +1,5 @@
 README.md
 setup.py
-calc_indicators/__init__.py
-calc_indicators/__main__.py
-calc_indicators/helpers.py
-get_data/__init__.py
-get_data/__main__.py
-get_data/helpers.py
 stt.egg-info/PKG-INFO
 stt.egg-info/SOURCES.txt
 stt.egg-info/dependency_links.txt
