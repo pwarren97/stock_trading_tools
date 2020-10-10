@@ -17,7 +17,6 @@ setup(
     install_requires= [
         "iexfinance",
         "pandas",
-        "pymongo",
-        "mongobox"
+        "pymongo"
     ]
 )

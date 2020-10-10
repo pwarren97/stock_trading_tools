@@ -1,0 +1,4 @@
+iexfinance
+mongobox
+pandas
+pymongo

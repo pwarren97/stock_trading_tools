@@ -1,5 +1,10 @@
 README.md
 setup.py
+stock_trading_tools/__init__.py
+stock_trading_tools/asgi.py
+stock_trading_tools/settings.py
+stock_trading_tools/urls.py
+stock_trading_tools/wsgi.py
 stt.egg-info/PKG-INFO
 stt.egg-info/SOURCES.txt
 stt.egg-info/dependency_links.txt
