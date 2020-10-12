@@ -16,3 +16,19 @@ stocks entry:
     volume,
     source
   }
+
+symbols entry:
+{
+  symbol,
+  date,
+  open,
+  high,
+  low,
+  close,
+  volume
+}
+
+indicators:
+{
+  
+}
