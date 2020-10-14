@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'stock_trading_tools.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stocks',
+        'NAME': 'stock_data',
         'USER': 'reader',
         'PASSWORD': 'password',
         'HOST': 'localhost',
