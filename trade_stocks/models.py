@@ -1,8 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class Stocks(models.Model):
+class Stock(models.Model):
     date = models.DateTimeField('date')
+    symbol = models.CharField('symbol', max_length=10)
     open = models.FloatField('open')
     high = models.FloatField('high')
     low = models.FloatField('low')
@@ -13,7 +14,7 @@ class Stocks(models.Model):
     class Meta:
         db_table = 'historical_stock_data'
 
-class Symbols(models.Model):
+class Symbol(models.Model):
     date = models.DateTimeField('date_pulled')
     symbol = models.CharField('symbol', max_length=200)
     name = models.CharField('name', max_length=200)
