@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Stock(models.Model):
+    stock_name = models.ForeignKey('StockName', models.SET_NULL)
+
     date = models.DateTimeField('date')
     symbol = models.CharField('symbol', max_length=10)
     open = models.FloatField('open')
@@ -14,7 +16,7 @@ class Stock(models.Model):
     class Meta:
         db_table = 'historical_stock_data'
 
-class Symbol(models.Model):
+class StockName(models.Model):
     date = models.DateTimeField('date_pulled')
     symbol = models.CharField('symbol', max_length=200)
     name = models.CharField('name', max_length=200)
@@ -25,4 +27,4 @@ class Symbol(models.Model):
     type = models.CharField('type', max_length=200) # prefered stock, common stock as ps, cs
 
     class Meta:
-        db_table = 'symbols'
+        db_table = 'stock_names'
