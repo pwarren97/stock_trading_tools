@@ -1,12 +1,16 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
 from .models import User
 
 # Create your views here.
 def index(request):
-    
-    data = {
+    # form = RegisterForm()
+    # if request.method == 'POST':
+    #     form = RegisterForm(request.POST)
+    #     if form.is_valid():
+            # Do something if form is valid
+    return render(request, 'login/index.html')
 
-    }
-    return HttpResponse(render(request, 'login/index.html', data))
+def results(request, user):
+    return HttpResponse('the use is : ' + user)
