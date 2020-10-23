@@ -1,18 +1,18 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "login/login.css" %}">
+<link rel="stylesheet" href="{% static "login/site.css" %}">
 
 <div class="content">
   <h1>Login</h1>
 
   <form>
-    <label>Username:</label>
-    <input type="text" />
+    <label for="user">Username:</label>
+    <input type="text" id="user"/>
     <br/>
 
     <label>Password:</label>
-    <input type="text" />
+    <input type="password" id="user"/>
     <br/>
 
-    <input type="button" value="Submit" />
+    <input type="submit" value="Submit" />
   </form>
 </div>
