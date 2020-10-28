@@ -1,16 +1,29 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.views import View
 
 from .models import User
+from .forms import LoginForm
 
 # Create your views here.
-def index(request):
+class Index(View):
+    def get(self, request):
+        return render(request, 'login/index.html')
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            db_user = User.get(username=username)
+        render(request, 'login/index.html')
+# def index(request):
+#     if request.method == 'GET':
+#         return render(request, 'login/index.html')
+#     elif request.method == 'POST':
+#         return render(request, 'login/index.html')
     # form = RegisterForm()
     # if request.method == 'POST':
     #     form = RegisterForm(request.POST)
     #     if form.is_valid():
             # Do something if form is valid
-    return render(request, 'login/index.html')
-
-def results(request, user):
-    return HttpResponse('the use is : ' + user)
