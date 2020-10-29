@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .models import User
@@ -16,7 +16,7 @@ class Index(View):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             db_user = User.get(username=username)
-        render(request, 'login/index.html')
+        return redirect('trade/')
 # def index(request):
 #     if request.method == 'GET':
 #         return render(request, 'login/index.html')
