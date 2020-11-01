@@ -71,6 +71,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stock_trading_tools.wsgi.application'
 
+# For finding hashing related info, see
+# https://docs.djangoproject.com/en/3.1/topics/auth/passwords/
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
