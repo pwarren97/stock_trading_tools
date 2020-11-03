@@ -10,14 +10,13 @@ from .forms import LoginForm
 # Create your views here.
 class Index(View):
     def get(self, request):
-        # Create login form
-        form = LoginForm()
-
-        if not request.cookie:
-            # Return the login page with the form filled in
-            return render(request, 'login/index.html', { 'form': form })
-        else:
+        if valid_cookie(request):
             return redirect('trade/')
+        else:
+            # Create login form
+            form = LoginForm()
+            return render(request, 'login/index.html', { 'form': form })
+            # return redirect(request, 'trade/')
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -33,8 +32,13 @@ class Index(View):
             if cleaned_password == db_entry.password:
                 response = redirect('trade/')
                 response.set_cookie('user', cleaned_username)
+                response.set_cookie('pass', cleaned_password)
                 return response
-        return render(request, 'login/index.html')
+        form = LoginForm()
+        return render(request, 'login/index.html', { 'form': form })
+
+def valid_cookie(request):
+    return True
 # def index(request):
 #     if request.method == 'GET':
 #         return render(request, 'login/index.html')
