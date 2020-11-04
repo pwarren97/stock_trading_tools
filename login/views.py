@@ -6,6 +6,8 @@ from django.contrib.auth.hashers import BCryptSHA256PasswordHasher
 from .models import User
 from .forms import LoginForm
 
+hour = 60 * 60
+cookie_age = 24 * hour
 
 # Create your views here.
 class Index(View):
@@ -31,14 +33,14 @@ class Index(View):
             # If the entered the correct password
             if cleaned_password == db_entry.password:
                 response = redirect('trade/')
-                response.set_cookie('user', cleaned_username)
-                response.set_cookie('pass', cleaned_password)
+                response.set_cookie('user', cleaned_username, max_age=cookie_age)
+                response.set_cookie('pass', cleaned_password, max_age=cookie_age)
                 return response
         form = LoginForm()
         return render(request, 'login/index.html', { 'form': form })
 
 def valid_cookie(request):
-    return True
+    return False
 # def index(request):
 #     if request.method == 'GET':
 #         return render(request, 'login/index.html')
