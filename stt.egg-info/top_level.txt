@@ -1,2 +1,4 @@
+login
 stock_trading_tools
 stt_lib
+trade_stocks

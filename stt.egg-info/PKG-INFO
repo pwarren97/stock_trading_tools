@@ -10,7 +10,7 @@ Description: # Stock Trading Tools application suite
         This application suite was made to be used for stock trading. Each program is designed to be able to be run on a separate computer.
         
         ## Web App interface
-        This is the web interface. Here, you access data, do data science, and access
+        This is the web interface. Here, you access data, do data science, and more.
         
         ## Desktop Applications
         These desktop applications as follows are intended to be used on the serverside or for development reasons. They are essentially wrappers around the basic functionality that django supports

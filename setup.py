@@ -6,10 +6,27 @@ from setuptools.config import read_configuration
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+# directory containing the desktop applications
+desktop_apps_dir = 'desktop_apps/'
+# represenation : package's actual name
+pkg_name = {
+    'calc_indicators': 'calc_indicators',
+    'get_data': 'get_data'
+}
+
 setup(
     name='stt',
     version='0.0',
-    packages=find_packages(),
+    packages=[
+        pkg_name.calc_indicators,
+        pkg_name.get_data,
+        'stt_lib'
+    ],
+    package_dir={
+        'calc_indicators': desktop_apps_dir + pkg_name.calc_indicators,
+        'get_data': desktop_apps_dir + pkg_name.get_data,
+
+    },
     author="Peyton Warren",
     author_email='pwarren97@gmail.com',
     description="Stock trading tools (stt)",
@@ -18,5 +35,6 @@ setup(
         "iexfinance",
         "pandas",
         "pymongo"
-    ]
+    ],
+    scripts=['desktop_apps/place-executables.sh']
 )
