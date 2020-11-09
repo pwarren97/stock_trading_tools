@@ -9,6 +9,8 @@ License: UNKNOWN
 Description: # Stock Trading Tools application suite
         This application suite was made to be used for stock trading. Each program is designed to be able to be run on a separate computer.
         
+        - install with `python3 setup.py install` command
+        
         ## Web App interface
         This is the web interface. Here, you access data, do data science, and more.
         

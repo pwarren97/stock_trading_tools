@@ -1,5 +1,12 @@
 README.md
 setup.py
+desktop_apps/place-executables.sh
+desktop_apps/calc_indicators/__init__.py
+desktop_apps/calc_indicators/__main__.py
+desktop_apps/calc_indicators/helpers.py
+desktop_apps/get_data/__init__.py
+desktop_apps/get_data/__main__.py
+desktop_apps/get_data/helpers.py
 login/__init__.py
 login/admin.py
 login/apps.py

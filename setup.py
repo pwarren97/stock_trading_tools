@@ -6,26 +6,27 @@ from setuptools.config import read_configuration
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-# directory containing the desktop applications
+# directory containing the desktop applications (not the django web app)
 desktop_apps_dir = 'desktop_apps/'
-# represenation : package's actual name
-pkg_name = {
-    'calc_indicators': 'calc_indicators',
-    'get_data': 'get_data'
-}
+
+# package's actual folder name
+calc_indicators = 'calc_indicators'
+get_data = 'get_data'
+
+# librarie's actual folder name
+stt_lib = 'stt_lib'
 
 setup(
     name='stt',
     version='0.0',
     packages=[
-        pkg_name.calc_indicators,
-        pkg_name.get_data,
-        'stt_lib'
+        calc_indicators,
+        get_data,
+        stt_lib
     ],
     package_dir={
-        'calc_indicators': desktop_apps_dir + pkg_name.calc_indicators,
-        'get_data': desktop_apps_dir + pkg_name.get_data,
-
+        'calc_indicators': desktop_apps_dir + calc_indicators,
+        'get_data': desktop_apps_dir + get_data
     },
     author="Peyton Warren",
     author_email='pwarren97@gmail.com',

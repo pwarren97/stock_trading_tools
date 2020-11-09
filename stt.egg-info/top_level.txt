@@ -1,4 +1,3 @@
-login
-stock_trading_tools
+calc_indicators
+get_data
 stt_lib
-trade_stocks
