@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.hashers import BCryptSHA256PasswordHasher as Hasher
 
 from django.contrib.auth.models import User
 from .forms import LoginForm
