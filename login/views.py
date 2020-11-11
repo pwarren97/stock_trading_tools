@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth.hashers import BCryptSHA256PasswordHasher as Hasher
 
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from .forms import LoginForm
 
 hour = 60 * 60
@@ -27,17 +28,18 @@ class Index(View):
             cleaned_username = form.cleaned_data['username']
             cleaned_password = form.cleaned_data['password']
 
-            # pull entry for the specified username
-            db_entry = User.objects.get(username=cleaned_username)
+            # returns the User object from the database if the credentials are correct
+            user = authenticate(username=cleaned_username, password=cleaned_password)
 
-            # If the entered the correct password
-            if cleaned_password == db_entry.password:
+            # If they entered correct credentials
+            if user is not None:
                 response = redirect('trade/')
+                # INSECURE METHOD below \/
                 response.set_cookie('user', cleaned_username, max_age=cookie_age)
-                response.set_cookie('pass', cleaned_password, max_age=cookie_age)
                 return response
-        form = LoginForm()
-        return render(request, 'login/index.html', { 'form': form })
+            else:
+                return render(request, 'login/index.html', { 'form': LoginForm() })
+        return render(request, 'login/index.html', { 'form': LoginForm() })
 
 def valid_cookie(request):
     return False
