@@ -34,8 +34,8 @@ class Index(View):
             # If they entered correct credentials
             if user is not None:
                 response = redirect('trade/')
-                # INSECURE METHOD below \/
-                response.set_cookie('user', cleaned_username, max_age=cookie_age)
+                # INSECURE METHOD below, needs proper encoding
+                response.set_cookie('sessionId', cleaned_username, max_age=cookie_age)
                 return response
             else:
                 return render(request, 'login/index.html', { 'form': LoginForm() })

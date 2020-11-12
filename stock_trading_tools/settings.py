@@ -80,6 +80,10 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
 ]
 
+# Forces cookies to only be sent over https
+SESSION_COOKIE_SECURE = False
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
