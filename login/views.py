@@ -13,7 +13,7 @@ cookie_age = 24 * hour
 # Create your views here.
 class Index(View):
     def get(self, request):
-        if valid_cookie(request):
+        if request.COOKIES['sessionId'] == 'peyton':
             return redirect('trade/')
         else:
             # Create login form
@@ -35,6 +35,7 @@ class Index(View):
             if user is not None:
                 response = redirect('trade/')
                 # INSECURE METHOD below, needs proper encoding
+                # Create the sessionId
                 response.set_cookie('sessionId', cleaned_username, max_age=cookie_age)
                 return response
             else:
