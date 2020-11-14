@@ -13,12 +13,12 @@ cookie_age = 24 * hour
 # Create your views here.
 class Index(View):
     def get(self, request):
-        if request.COOKIES['sessionId'] == 'peyton':
-            return redirect('trade/')
-        else:
+        # if request.COOKIES['sessionId'] == 'peyton':
+        #     return redirect('trade/index.html')
+        # else:
             # Create login form
-            form = LoginForm()
-            return render(request, 'login/index.html', { 'form': form })
+        form = LoginForm()
+        return render(request, 'login/index.html', { 'form': form })
             # return redirect(request, 'trade/')
 
     def post(self, request):
@@ -33,7 +33,7 @@ class Index(View):
 
             # If they entered correct credentials
             if user is not None:
-                response = redirect('trade/')
+                response = redirect('trade/index.html')
                 # INSECURE METHOD below, needs proper encoding
                 # Create the sessionId
                 response.set_cookie('sessionId', cleaned_username, max_age=cookie_age)
