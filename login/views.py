@@ -33,7 +33,7 @@ class Index(View):
 
             # If they entered correct credentials
             if user is not None:
-                response = redirect('trade/index.html')
+                response = redirect('trade/')
                 # INSECURE METHOD below, needs proper encoding
                 # Create the sessionId
                 response.set_cookie('sessionId', cleaned_username, max_age=cookie_age)
