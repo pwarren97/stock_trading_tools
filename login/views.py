@@ -24,15 +24,11 @@ class Index(View):
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
-            # Clean the input
-            cleaned_username = form.cleaned_data['username']
-            cleaned_password = form.cleaned_data['password']
-
-            # returns the User object from the database if the credentials are correct
-            user = authenticate(username=cleaned_username, password=cleaned_password)
+            # returns the User object from the database if the credentials are correct, otherwise None
+            authenticated_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
 
             # If they entered correct credentials
-            if user is not None:
+            if authenticated_user is not None:
                 response = redirect('trade/')
                 # INSECURE METHOD below, needs proper encoding
                 # Create the sessionId
