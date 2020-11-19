@@ -1,12 +1,21 @@
 /* login interface */
-.content {
+.login-panel {
   margin-left: 30%;
   margin-right: 30%;
   margin-top: 5%;
-  text-align: center;
+  text-align: left;
   font: Tahoma;
   background-color: #ddd;
   border-radius: 1em;
   box-shadow: 0em 0.15em 0.2em #aaa;
   padding: 2em;
+}
+
+.form {
+
+}
+
+.form input {
+  display: block;
+  margin-bottom: 1em;
 }

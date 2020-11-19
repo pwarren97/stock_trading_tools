@@ -1,10 +1,10 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "login/site.css" %}">
 
-<div class="content">
+<div class="login-panel">
   <h1>Login</h1>
 
-  <form method='post'>
+  <form class='form' method='post'>
     {% csrf_token %}
     {{ form }}
     <!-- <label for="user">Username:</label>
