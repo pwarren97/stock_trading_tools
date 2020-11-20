@@ -1,7 +1,8 @@
 /* login interface */
 .login-panel {
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
   margin-top: 5%;
   text-align: left;
   font: Tahoma;
@@ -18,4 +19,9 @@
 .form input {
   display: block;
   margin-bottom: 1em;
+}
+
+.form-button {
+  font-size: 1em;
+  margin-bottom: auto;
 }
