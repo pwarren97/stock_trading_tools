@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'django.contrib.sessions.backends.signed_cookies',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,6 +83,8 @@ PASSWORD_HASHERS = [
 
 # Forces cookies to only be sent over https
 SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_HTTPONLY sets whether or not the cookie can be accessed by JavaScript
+SESSION_COOKIE_HTTPONLY = True
 
 
 # Database

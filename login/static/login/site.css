@@ -17,6 +17,7 @@
 }
 
 .form input {
+  max-width: 100%;
   display: block;
   margin-bottom: 1em;
 }
