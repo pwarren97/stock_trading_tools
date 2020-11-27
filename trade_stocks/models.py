@@ -5,7 +5,6 @@ class Stock(models.Model):
     stock_name = models.ForeignKey('StockName',
                                     models.SET_NULL,
                                     null=True)
-
     date = models.DateTimeField('date')
     symbol = models.CharField('symbol', max_length=10)
     open = models.FloatField('open')
@@ -34,6 +33,6 @@ class StockName(models.Model):
 
     def __str__(self):
         return self.symbol + ": " + self.name
-        
+
     class Meta:
         db_table = 'stock_names'
