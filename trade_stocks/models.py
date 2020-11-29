@@ -15,7 +15,7 @@ class Stock(models.Model):
     source = models.CharField('source', max_length=200)
 
     def __str__(self):
-        return self.date + " " + self.symbol
+        return str(self.date) + " " + self.symbol
 
     class Meta:
         db_table = 'historical_stock_data'

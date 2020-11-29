@@ -15,6 +15,7 @@ def index(request):
 # Shows information related to a specific stock: price, name, indicators, etc.
 def stock_info(request, ticker_symbol):
     stock_name = StockName.objects.get(symbol=ticker_symbol.lower())
+    # stock = Stock.objects.get(symbol=ticker_symbol.lower())
 
     context = {
         'stock_name': stock_name
