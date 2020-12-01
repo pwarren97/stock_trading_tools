@@ -10,6 +10,8 @@ from .forms import LoginForm
 hour = 60 * 60
 cookie_age = 24 * hour
 
+login_index = 'login/index.html'
+
 # Create your views here.
 class Index(View):
     def get(self, request):
@@ -17,7 +19,7 @@ class Index(View):
             return redirect('trade/')
         else:
             form = LoginForm()
-            return render(request, 'login/index.html', { 'form': form })
+            return render(request, login_index, { 'form': form })
             # return redirect(request, 'trade/')
 
     def post(self, request):
@@ -34,8 +36,8 @@ class Index(View):
                 response = add_cookie(response, form)
                 return response
             else:
-                return render(request, 'login/index.html', { 'form': LoginForm() })
-        return render(request, 'login/index.html', { 'form': LoginForm() })
+                return render(request, login_index, { 'form': LoginForm() })
+        return render(request, login_index, { 'form': LoginForm() })
 
 # Checks if the cookie is valid
 def valid_cookie(request):

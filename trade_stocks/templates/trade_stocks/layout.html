@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Stock Trading Tools{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "trade_stocks/bootstrap.css" %}">
+    {% include 'trade_stocks/navbar.html' %}
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+
+    {% include 'trade_stocks/footer.html' %}
+  </body>
+</html>

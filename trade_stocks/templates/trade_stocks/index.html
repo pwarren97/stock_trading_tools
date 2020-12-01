@@ -1,9 +1,13 @@
-<h1>trade stocks</h1>
+{% extends 'trade_stocks/layout.html' %}
 
-<ul>
-  {% for stock in list_of_stocks %}
-    <li>
-      <a href="/trade/stock_info/{{ stock.symbol }}">{{ stock }}</a>
-    </li>
-  {% endfor %}
-</ul>
+{% block content %}
+  <h1>Trade stocks</h1>
+
+  <ul>
+    {% for stock in list_of_stocks %}
+      <li>
+        <a href="/trade/{{ stock.symbol }}">{{ stock }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

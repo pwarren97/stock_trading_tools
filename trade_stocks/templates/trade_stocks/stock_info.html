@@ -1,1 +1,10 @@
-<h1>{{ stock_name.name }} Info</h1>
+{% extends 'trade_stocks/layout.html' %}
+
+{% block title %}
+  {{ stock_name.name }}
+{% endblock %}
+
+{% block content %}
+  <h1>{{ stock_name.name }} Info</h1>
+
+{% endblock %}
