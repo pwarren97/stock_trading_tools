@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from .forms import LoginForm
 
 hour = 60 * 60
-cookie_age = 24 * hour
+cookie_age = 12 * hour
 
 login_index = 'login/index.html'
 
@@ -38,6 +38,8 @@ class Index(View):
             else:
                 return render(request, login_index, { 'form': LoginForm() })
         return render(request, login_index, { 'form': LoginForm() })
+
+
 
 # Checks if the cookie is valid
 def valid_cookie(request):
