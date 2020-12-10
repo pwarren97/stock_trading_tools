@@ -7,11 +7,14 @@ from .models import Stock, StockName
 
 # Shows the portfolio of stocks.
 def index(request):
-    list_of_stocks = StockName.objects.filter()
-    context = {
+    if request.user.is_authenticated:
+        list_of_stocks = StockName.objects.filter()
+        context = {
         'list_of_stocks': list_of_stocks
-    }
-    return render(request, 'trade_stocks/index.html', context)
+        }
+        return render(request, 'trade_stocks/index.html', context)
+    else:
+        redirect('login/')
 
 # Shows information related to a specific stock: price, name, indicators, etc.
 def stock_info(request, ticker_symbol):
