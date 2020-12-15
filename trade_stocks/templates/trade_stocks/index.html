@@ -6,13 +6,15 @@
       <h1>Portfolio</h1>
 
       <div>
-        <p>Window containing portfolio related data</p>
+        <p>Window containing portfolio related data:</p>
+        <canvas id="portfolioChart" width=500>
+        </canvas>
       </div>
 
     </div>
 
     <div class="col-md-2 border bg-light pt-3 text-center">
-      <h4><u>Sidebar</u></h4>
+      <h4>Sidebar</h4>
       <ul class="list-group list-group-flush">
         {% for stock in list_of_stocks %}
           <li class="list-group-item bg-light">
