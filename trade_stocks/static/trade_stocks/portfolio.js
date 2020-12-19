@@ -31,4 +31,6 @@ window.onload = function () {
       dataPoints: dataPoints
     }]
   });
+
+  chart.render()
 };
