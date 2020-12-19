@@ -1,15 +1,15 @@
 {% extends 'trade_stocks/layout.html' %}
 
+{% block script %}
+{% load static %}
+    <script type="text/javascript" src="{% static "trade_stocks/portfolio.js" %}"></script>
+{% endblock %}
+
 {% block content %}
   <div class="row">
     <div class="col-md-10">
       <h1>Portfolio</h1>
-
-      <div>
-        <p>Window containing portfolio related data:</p>
-        <div id="portfolioChart" width=500>
-        </div>
-      </div>
+      <div id="portfolioChart" style="width: 100%; height: auto"></div>
 
     </div>
 

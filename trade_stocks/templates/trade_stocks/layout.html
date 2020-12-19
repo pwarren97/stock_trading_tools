@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{% static "trade_stocks/bootstrap.css" %}">
     <script type="text/javascript" src="{% static "trade_stocks/bootstrap.js" %}"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    
+
+    {% block script %}{% endblock %}
+
     {% include 'trade_stocks/navbar.html' %}
   </head>
   <body>

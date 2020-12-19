@@ -2,7 +2,10 @@
 // Uses CanvasJS
 
 window.onload = function () {
-  var dataPoints = [];
+  var dataPoints = [{
+    x: new Date(),
+    y: 58.0
+  }];
 
   var chart = new CanvasJS.Chart("portfolioChart", {
     animationEnabled: true,
@@ -28,7 +31,7 @@ window.onload = function () {
     data: [{
       type: "candlestick",
       yValueFormatString: "$##0.00",
-      dataPoints: dataPoints
+      dataPoints: dataPoints;
     }]
   });
 
