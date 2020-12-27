@@ -141,3 +141,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/stt/static"
+
+LOGIN_REDIRECT_URL = 'trade/'

@@ -40,3 +40,7 @@ class Index(View):
                 else:
                     return render(request, login_index, { 'form': LoginForm() })
             return render(request, login_index, { 'form': LoginForm() })
+
+class LogOut(View):
+    def get(self, request):
+        return redirect(login_index)

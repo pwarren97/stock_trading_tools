@@ -6,7 +6,7 @@
 
   <form class='form' method='post'>
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <!-- <label for="user">Username:</label>
     <input type="text" id="user" name="user"/>
     <br/>
