@@ -1,10 +1,24 @@
 {% extends 'trade_stocks/layout.html' %}
 
+{% block script %}
+{% load static %}
+  <script src="{% static 'trade_stocks/stock_info.js' %}"></script>
+{% endblock %}
+
 {% block title %}
   {{ stock_name.name }}
 {% endblock %}
 
 {% block content %}
-  <h1>{{ stock_name.name }} Info</h1>
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ stock_name.name }} Info</h1>
+      <div id="stockChart"></div>
+    </div>
 
+    <div class="col-md-2 border bg-light pt-3 text-center">
+      <h4>Trade</h4>
+      
+    </div>
+  </div>
 {% endblock %}
