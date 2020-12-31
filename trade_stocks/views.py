@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Stock, StockName
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here
 
 # Shows the portfolio of stocks.
+@login_required(login_url='/')
 def index(request):
     if request.user.is_authenticated:
         list_of_stocks = StockName.objects.filter()
@@ -17,6 +18,7 @@ def index(request):
         redirect('login/')
 
 # Shows information related to a specific stock: price, name, indicators, etc.
+@login_required(login_url='/')
 def stock_info(request, ticker_symbol):
     stock_name = StockName.objects.get(symbol=ticker_symbol.lower())
     # stock = Stock.objects.get(symbol=ticker_symbol.lower())

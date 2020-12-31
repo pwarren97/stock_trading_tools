@@ -87,6 +87,11 @@ SESSION_COOKIE_SECURE = False
 # SESSION_COOKIE_HTTPONLY sets whether or not the cookie can be accessed by JavaScript
 SESSION_COOKIE_HTTPONLY = True
 
+minute = 60
+hour = 60 * minute
+day = 24 * hour
+
+SESSION_COOKIE_AGE = 12 * hour
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -142,4 +147,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/stt/static"
 
-LOGIN_REDIRECT_URL = 'trade/'
+LOGIN_REDIRECT_URL = '/'
