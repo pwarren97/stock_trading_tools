@@ -1,0 +1,28 @@
+/* login interface */
+.login-panel {
+  margin-left: auto;
+  margin-right: auto;
+  width: 11em;
+  margin-top: 5%;
+  text-align: left;
+  font: Tahoma;
+  background-color: #ddd;
+  border-radius: 1em;
+  box-shadow: 0em 0.15em 0.2em #aaa;
+  padding: 2em;
+}
+
+.form {
+
+}
+
+.form input {
+  max-width: 100%;
+  display: block;
+  margin-bottom: 1em;
+}
+
+.form-button {
+  font-size: 1em;
+  margin-bottom: auto;
+}

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'login.apps.LoginConfig',
     'trade_stocks.apps.TradeStocksConfig',
     'django.contrib.admin',
@@ -147,4 +148,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/stt/static"
 
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = 'trade/'
+LOGIN_REDIRECT_URL = 'trade/'
