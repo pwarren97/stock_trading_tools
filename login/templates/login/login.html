@@ -1,20 +1,17 @@
+{% extends 'login/layout.html' %}
+
 {% load static %}
+
+{% block content %}
 <link rel="stylesheet" href="{% static "login/site.css" %}">
 
-<div class="login-panel">
-  <h1>Login</h1>
+<h1>Login</h1>
 
-  <form class='form' method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <!-- <label for="user">Username:</label>
-    <input type="text" id="user" name="user"/>
-    <br/>
+<form class='form' method='post'>
+  {% csrf_token %}
+  {{ form.as_p }}
 
-    <label for="pass">Password:</label>
-    <input type="password" id="pass" name="pass"/>
-    <br/> -->
+  <input type="submit" value="Submit" class="btn btn-secondary" />
+</form>
 
-    <input type="submit" value="Submit" class="form-button" />
-  </form>
-</div>
+{% endblock %}
